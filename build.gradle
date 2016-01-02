@@ -1,0 +1,52 @@
+/*
+ * LunaticSMTP
+ * Copyright (C) 2016  Anton Larionov
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+apply plugin: 'java'
+apply plugin: 'idea'
+
+repositories {
+    jcenter()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+idea {
+    project {
+        jdkName = '1.8'
+        vcs = 'Git'
+    }
+}
+
+dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.13'
+    compile 'org.slf4j:slf4j-simple:1.7.13'
+
+    compile 'com.beust:jcommander:1.48'
+    compile 'org.subethamail:subethasmtp:3.1.7'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.github.anlar.lunatic.Lunatic'
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}

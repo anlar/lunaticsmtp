@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ LunaticSMTP
+  ~ Copyright (C) 2016  Anton Larionov
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.web.WebView?>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.gitlab.anlar.lunatic.gui.MainWindowController">
+
+    <top>
+        <GridPane alignment="CENTER_LEFT" hgap="10" vgap="10">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+
+            <Label text="Listening port:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <TextField fx:id="portField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+            <Button fx:id="startButton" GridPane.columnIndex="2" GridPane.rowIndex="0" onAction="#handleStartButton"/>
+
+            <Label text="Message(s) received:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <Label id="messagesField" fx:id="messagesField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            <Button text="Clear" GridPane.columnIndex="2" GridPane.rowIndex="1" onAction="#handleClearButton"/>
+        </GridPane>
+    </top>
+
+    <center>
+        <TabPane tabClosingPolicy="UNAVAILABLE" side="LEFT">
+            <Tab text="Emails">
+                <SplitPane orientation="VERTICAL">
+
+                    <TableView fx:id="messagesTable">
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                        </columnResizePolicy>
+                        <columns>
+                            <TableColumn text="Subject">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="subject"/>
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn text="From">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="from"/>
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn text="To">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="to"/>
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn text="Date">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="date"/>
+                                </cellValueFactory>
+                            </TableColumn>
+                        </columns>
+                        <items>
+                            <FXCollections fx:id="messages" fx:factory="observableArrayList"/>
+                        </items>
+                    </TableView>
+
+                    <TabPane tabClosingPolicy="UNAVAILABLE" side="LEFT">
+                        <Tab text="HTML">
+                            <WebView fx:id="emailText"/>
+                        </Tab>
+                        <Tab text="RAW">
+                            <TextArea fx:id="rawText" editable="false"/>
+                        </Tab>
+                    </TabPane>
+
+                </SplitPane>
+            </Tab>
+        </TabPane>
+    </center>
+
+</BorderPane>
