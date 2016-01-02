@@ -89,6 +89,10 @@
 
                 </SplitPane>
             </Tab>
+
+            <Tab text="Logs">
+                <TextArea fx:id="serverLog" editable="false"/>
+            </Tab>
         </TabPane>
     </center>
 

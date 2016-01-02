@@ -28,6 +28,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.web.WebView;
+import org.apache.log4j.*;
+import org.apache.log4j.spi.LoggingEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,11 +54,16 @@ public class MainWindowController implements Initializable {
     private TableView messagesTable;
 
     @FXML
+    private TextArea serverLog;
+
+    @FXML
     private ObservableList<Email> messages;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Config config = Config.getInstance();
+
+        createLogPanelAppender();
 
         initListeners();
         initElements(config);
@@ -79,6 +86,20 @@ public class MainWindowController implements Initializable {
     private void handleClearButton(ActionEvent event) {
         messages.clear();
         updateMessagesCount();
+    }
+
+    private void createLogPanelAppender() {
+        WriterAppender appender = new WriterAppender() {
+            @Override
+            public void append(LoggingEvent event) {
+                Platform.runLater(() -> serverLog.appendText(layout.format(event)));
+            }
+        };
+        appender.setName("GuiLogger");
+        appender.setLayout(new PatternLayout("%d{HH:mm:ss.SSS} %-5p [%c{1}]: %m%n"));
+        appender.setThreshold(Level.DEBUG);
+
+        org.apache.log4j.Logger.getRootLogger().addAppender(appender);
     }
 
     private void initListeners() {
