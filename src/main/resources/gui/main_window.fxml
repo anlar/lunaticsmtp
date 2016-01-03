@@ -24,6 +24,7 @@
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.web.WebView?>
+<?import com.gitlab.anlar.lunatic.gui.control.DatePropertyValueFactory?>
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.gitlab.anlar.lunatic.gui.MainWindowController">
 
     <top>
@@ -69,7 +70,7 @@
                             </TableColumn>
                             <TableColumn text="Date">
                                 <cellValueFactory>
-                                    <PropertyValueFactory property="date"/>
+                                    <DatePropertyValueFactory property="date" format="yyyy-MM-dd HH:mm:ss"/>
                                 </cellValueFactory>
                             </TableColumn>
                         </columns>
