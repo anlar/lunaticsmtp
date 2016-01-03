@@ -18,20 +18,39 @@
 
 package com.gitlab.anlar.lunatic.server;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.subethamail.smtp.helper.SimpleMessageListenerAdapter;
 import org.subethamail.smtp.server.SMTPServer;
 
+import java.net.BindException;
 import java.net.InetAddress;
 
 public class EmailServer {
+    private static Logger log = LoggerFactory.getLogger(EmailServer.class);
+
     private static EmailServerListener listener = new EmailServerListener();
     private static SMTPServer smtpServer = null;
 
-    public static void start(int port, InetAddress bindAddress) {
-        smtpServer = new SMTPServer(new SimpleMessageListenerAdapter(listener), new SMTPAuthHandlerFactory());
-        smtpServer.setBindAddress(bindAddress);
-        smtpServer.setPort(port);
-        smtpServer.start();
+    public static StartResult start(int port, InetAddress bindAddress) {
+        try {
+            smtpServer = new SMTPServer(new SimpleMessageListenerAdapter(listener), new SMTPAuthHandlerFactory());
+            smtpServer.setBindAddress(bindAddress);
+            smtpServer.setPort(port);
+            smtpServer.start();
+
+            return new StartResult(true);
+        } catch (Throwable e) {
+            log.error("Failed to start SMTP server", e);
+
+            if (e.getCause() instanceof BindException) {
+                return new StartResult(false, String.format("%s, port: %s", e.getCause().getMessage(), port));
+            } else if (e.getCause() instanceof IllegalArgumentException && e.getMessage().contains("out of range")) {
+                return new StartResult(false, String.format("Port out of range: %s", port));
+            } else {
+                return new StartResult(false, e.getMessage());
+            }
+        }
     }
 
     public static void stop() {

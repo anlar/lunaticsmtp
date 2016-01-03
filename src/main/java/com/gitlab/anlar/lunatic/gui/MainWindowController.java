@@ -21,6 +21,7 @@ package com.gitlab.anlar.lunatic.gui;
 import com.gitlab.anlar.lunatic.Config;
 import com.gitlab.anlar.lunatic.dto.Email;
 import com.gitlab.anlar.lunatic.server.EmailServer;
+import com.gitlab.anlar.lunatic.server.StartResult;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -69,7 +70,9 @@ public class MainWindowController implements Initializable {
         initElements(config);
 
         if (config.isStart()) {
-            startServer();
+            // launch server in separate thread so it won't block main window appearance with warning dialog
+            // in case if error will occur during it's start
+            Platform.runLater(this::startServer);
         }
     }
 
@@ -139,9 +142,20 @@ public class MainWindowController implements Initializable {
     }
 
     private void startServer() {
-        EmailServer.start(Integer.parseInt(portField.getText()), null);
-        portField.setDisable(true);
-        setStartButtonText(true);
+        StartResult result = EmailServer.start(Integer.parseInt(portField.getText()), null);
+
+        if (result.isSuccessful()) {
+            portField.setDisable(true);
+            setStartButtonText(true);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("LunaticSMTP error");
+            alert.setHeaderText("Failed to start SMTP server");
+            alert.setContentText(String.format(
+                    "%s\nYou may check application logs for additional details", result.getMessage()));
+
+            alert.showAndWait();
+        }
     }
 
     private void stopServer() {
