@@ -33,6 +33,9 @@ public class Config {
     @Parameter(names = {"-s", "--start"}, description = "Starts SMTP server at application launch")
     private boolean start = false;
 
+    @Parameter(names = {"-n", "--no-gui"}, description = "Starts application without GUI (should be used with -s argument)")
+    private boolean noGui = false;
+
     @Parameter(names = {"-p", "--port"}, description = "Specify port for SMTP server")
     private int port = 2527;
 
@@ -50,6 +53,14 @@ public class Config {
 
     public void setStart(boolean start) {
         this.start = start;
+    }
+
+    public boolean isNoGui() {
+        return noGui;
+    }
+
+    public void setNoGui(boolean noGui) {
+        this.noGui = noGui;
     }
 
     public int getPort() {

@@ -20,8 +20,13 @@ package com.gitlab.anlar.lunatic;
 
 import com.beust.jcommander.JCommander;
 import com.gitlab.anlar.lunatic.gui.LunaticApplication;
+import com.gitlab.anlar.lunatic.server.EmailServer;
+import com.gitlab.anlar.lunatic.server.StartResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Lunatic {
+    private static Logger log = LoggerFactory.getLogger(Lunatic.class);
 
     public static void main(String[] args) {
         Config config = Config.getInstance();
@@ -30,7 +35,23 @@ public class Lunatic {
         if (config.isHelp()) {
             commander.usage();
         } else {
-            LunaticApplication.launch(LunaticApplication.class, args);
+            if (config.isNoGui()) {
+                if (config.isStart()) {
+                    startServer(config.getPort());
+                } else {
+                    log.info("Skip SMTP server start (no-gui option should be combined with auto-start)");
+                }
+            } else {
+                LunaticApplication.launch(LunaticApplication.class, args);
+            }
+        }
+    }
+
+    private static void startServer(int port) {
+        StartResult result = EmailServer.start(port, null);
+
+        if (!result.isSuccessful()) {
+            log.error("Failed to start SMTP server, {}", result.getMessage());
         }
     }
 }
