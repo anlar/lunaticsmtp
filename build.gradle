@@ -46,9 +46,25 @@ dependencies {
     compile 'org.subethamail:subethasmtp:3.1.7'
 }
 
+task('releaseDev', type: Jar, description: 'Assembles a jar archive with application (version + revision).') {
+    baseName = applicationName
+    version = baseVersion + '-' + 'git rev-parse --short HEAD'.execute().text.trim()
+
+    manifest {
+        attributes(
+                'Main-Class': 'com.gitlab.anlar.lunatic.Lunatic'
+        )
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    with jar
+}
+
 task('release', type: Jar, description: 'Assembles a jar archive with application.') {
-    ext.hash = 'git rev-parse --short HEAD'.execute().text.trim()
-    baseName = applicationName + '-' + baseVersion + '-' + hash
+    baseName = applicationName
+    version = baseVersion
 
     manifest {
         attributes(
