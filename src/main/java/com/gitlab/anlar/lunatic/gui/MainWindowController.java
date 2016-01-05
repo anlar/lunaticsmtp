@@ -29,11 +29,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.web.WebView;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.log4j.*;
 import org.apache.log4j.spi.LoggingEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -136,6 +138,15 @@ public class MainWindowController implements Initializable {
             change.setText(change.getText().replaceAll("[^0-9.,]", ""));
             return change;
         }));
+
+        if (SystemUtils.IS_OS_UNIX) {
+            // change web-cache dir
+            // from: $HOME/.com.gitlab.anlar.lunatic.gui.LunaticApplication/webview
+            // to:   $HOME/.cache/lunatic-smtp/webview/
+            this.emailText.getEngine().setUserDataDirectory(new File(
+                    SystemUtils.USER_HOME + File.separator + ".cache" + File.separator + "lunatic-smtp",
+                    "webview"));
+        }
 
         portField.setText(String.valueOf(config.getPort()));
         messagesField.setText("0");
