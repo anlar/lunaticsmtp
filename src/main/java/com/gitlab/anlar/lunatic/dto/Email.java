@@ -27,19 +27,22 @@ public class Email {
     private String subject;
     private String from;
     private String to;
+
     private String body;
+    private String bodyType;
 
     public Email() {
         // do nothing
     }
 
-    public Email(String content, Date date, String subject, String from, String to, String body) {
+    public Email(String content, Date date, String subject, String from, String to, String body, String bodyType) {
         this.content = content;
         this.date = date;
         this.subject = subject;
         this.from = from;
         this.to = to;
         this.body = body;
+        this.bodyType = bodyType;
     }
 
     public String getContent() {
@@ -88,5 +91,9 @@ public class Email {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public String getBodyType() {
+        return bodyType;
     }
 }

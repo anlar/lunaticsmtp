@@ -109,8 +109,9 @@ public class MainWindowController implements Initializable {
         //noinspection unchecked
         messagesTable.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
             if (messagesTable.getSelectionModel().getSelectedItem() != null) {
-                emailText.getEngine().loadContent(((Email) newValue).getBody());
-                rawText.setText(((Email) newValue).getContent());
+                Email email = (Email) newValue;
+                emailText.getEngine().loadContent(email.getBody(), email.getBodyType());
+                rawText.setText(email.getContent());
             } else {
                 emailText.getEngine().loadContent("");
                 rawText.setText(null);

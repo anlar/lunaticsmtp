@@ -41,6 +41,9 @@ import java.util.regex.Pattern;
 public class EmailServerListener extends Observable implements SimpleMessageListener {
     private Logger log = LoggerFactory.getLogger(getClass());
 
+    private static final String TYPE_TEXT = "text/plain";
+    private static final String TYPE_HTML = "text/html";
+
     @Override
     public boolean accept(String from, String recipient) {
         return true;
@@ -66,19 +69,48 @@ public class EmailServerListener extends Observable implements SimpleMessageList
         String subject = message.getSubject();
 
         Object content = message.getContent();
-        StringBuilder body = new StringBuilder();
-        if (content instanceof Multipart) {
+        String body = null;
+        String bodyType = null;
+
+        // single-part email
+        if (content instanceof String) {
+            if (isPlainText(message.getContentType())) {
+                body = (String) content;
+                bodyType = TYPE_TEXT;
+            } else if (isHtml(message.getContentType())) {
+                body = (String) content;
+                bodyType = TYPE_HTML;
+            }
+        // multi-part email
+        } else if (content instanceof Multipart) {
             Multipart mp = (Multipart) content;
             for (int i = 0; i < mp.getCount(); i++) {
                 BodyPart bp = mp.getBodyPart(i);
-                if (Pattern.compile(Pattern.quote("text/plain"), Pattern.CASE_INSENSITIVE).matcher(bp.getContentType()).find()) {
-                    body.append(bp.getContent());
-                } else {
-                    // todo: html
+
+                if (isPlainText(bp.getContentType())) {
+                    body = (String) bp.getContent();
+                    bodyType = TYPE_TEXT;
+                    break;
+                } else if (isHtml(bp.getContentType())) {
+                    body = (String) bp.getContent();
+                    bodyType = TYPE_HTML;
+                    break;
                 }
             }
         }
 
-        return new Email(rawContent, new Date(), subject, from, recipient, body.toString());
+        return new Email(rawContent, new Date(), subject, from, recipient, body, bodyType);
+    }
+
+    private boolean isPlainText(String value) {
+        return isSuitableContentType(value, TYPE_TEXT);
+    }
+
+    private boolean isHtml(String value) {
+        return isSuitableContentType(value, TYPE_HTML);
+    }
+
+    private boolean isSuitableContentType(String value, String type) {
+        return Pattern.compile(Pattern.quote(type), Pattern.CASE_INSENSITIVE).matcher(value).find();
     }
 }
