@@ -32,7 +32,7 @@ public class LunaticApplication extends Application {
         //noinspection ConstantConditions
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("gui/main_window.fxml"));
 
-        Scene scene = new Scene(root, 300, 275);
+        Scene scene = new Scene(root, 1024, 768);
 
         //noinspection ConstantConditions
         scene.getStylesheets().add(getClass().getClassLoader().getResource("gui/main.css").toExternalForm());

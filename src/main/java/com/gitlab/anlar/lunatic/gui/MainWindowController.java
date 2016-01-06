@@ -166,6 +166,10 @@ public class MainWindowController implements Initializable {
             alert.setContentText(String.format(
                     "%s\nYou may check application logs for additional details", result.getMessage()));
 
+            // expand default width to make sure that second content line fill fit there
+            alert.setResizable(true);
+            alert.getDialogPane().setPrefWidth(500);
+
             alert.showAndWait();
         }
     }
