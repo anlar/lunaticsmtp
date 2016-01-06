@@ -29,6 +29,8 @@ targetCompatibility = 1.8
 ext {
     applicationName = 'LunaticSMTP'
     baseVersion = 'dev'
+    mainClass = 'com.gitlab.anlar.lunatic.Lunatic'
+    author = 'Anton Larionov'
 }
 
 idea {
@@ -47,15 +49,28 @@ dependencies {
     compile 'org.subethamail:subethasmtp:3.1.7'
 }
 
+tasks.withType(Jar) {
+    manifest {
+        attributes(
+                'Created-By': "${System.getProperty("java.runtime.version")} (${System.getProperty("java.vm.vendor")})",
+                'Build-Time': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+
+                'Specification-Title': applicationName,
+                'Specification-Version': baseVersion,
+                'Specification-Vendor': author,
+
+                'Implementation-Title': applicationName,
+                'Implementation-Version': baseVersion + '-' + 'git rev-parse HEAD'.execute().text.trim(),
+                'Implementation-Vendor': author,
+
+                'Main-Class': mainClass
+        )
+    }
+}
+
 task('releaseDev', type: Jar, description: 'Assembles a jar archive with application (version + revision).') {
     baseName = applicationName
     version = baseVersion + '-' + 'git rev-parse --short HEAD'.execute().text.trim()
-
-    manifest {
-        attributes(
-                'Main-Class': 'com.gitlab.anlar.lunatic.Lunatic'
-        )
-    }
 
     from {
         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
@@ -66,12 +81,6 @@ task('releaseDev', type: Jar, description: 'Assembles a jar archive with applica
 task('release', type: Jar, description: 'Assembles a jar archive with application.') {
     baseName = applicationName
     version = baseVersion
-
-    manifest {
-        attributes(
-                'Main-Class': 'com.gitlab.anlar.lunatic.Lunatic'
-        )
-    }
 
     from {
         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
