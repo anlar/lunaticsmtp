@@ -21,6 +21,7 @@ package com.gitlab.anlar.lunatic;
 import com.beust.jcommander.JCommander;
 import com.gitlab.anlar.lunatic.gui.LunaticApplication;
 import com.gitlab.anlar.lunatic.server.EmailServer;
+import com.gitlab.anlar.lunatic.server.EmailWriter;
 import com.gitlab.anlar.lunatic.server.StartResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +38,7 @@ public class Lunatic {
         } else {
             if (config.isNoGui()) {
                 if (config.isStart()) {
-                    startServer(config.getPort());
+                    startServer(config.getPort(), config.isWrite(), config.getDirectory());
                 } else {
                     log.info("Skip SMTP server start (no-gui option should be combined with auto-start)");
                 }
@@ -47,7 +48,19 @@ public class Lunatic {
         }
     }
 
-    private static void startServer(int port) {
+    private static void startServer(int port, boolean isWrite, String directory) {
+        EmailServer.initEmailWriter(new EmailWriter.Config() {
+            @Override
+            public boolean isActive() {
+                return isWrite;
+            }
+
+            @Override
+            public String getDirectory() {
+                return directory;
+            }
+        });
+
         StartResult result = EmailServer.start(port, null);
 
         if (!result.isSuccessful()) {

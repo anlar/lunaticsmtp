@@ -37,9 +37,15 @@
             <TextField fx:id="portField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
             <Button fx:id="startButton" GridPane.columnIndex="2" GridPane.rowIndex="0" onAction="#handleStartButton"/>
 
-            <Label text="Message(s) received:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-            <Label id="messagesField" fx:id="messagesField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-            <Button text="Clear" GridPane.columnIndex="2" GridPane.rowIndex="1" onAction="#handleClearButton"/>
+            <Label text="Save message(s) to:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <TextField fx:id="dirField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            <Button fx:id="dirButton" text="Open..." GridPane.columnIndex="2" GridPane.rowIndex="1" onAction="#handleDirButton"/>
+
+            <CheckBox fx:id="saveDirCheck" text="Save incoming emails" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+
+            <Label text="Message(s) received:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+            <Label id="messagesField" fx:id="messagesField" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+            <Button text="Clear" GridPane.columnIndex="2" GridPane.rowIndex="3" onAction="#handleClearButton"/>
         </GridPane>
     </top>
 

@@ -21,6 +21,7 @@ package com.gitlab.anlar.lunatic.gui;
 import com.gitlab.anlar.lunatic.Config;
 import com.gitlab.anlar.lunatic.dto.Email;
 import com.gitlab.anlar.lunatic.server.EmailServer;
+import com.gitlab.anlar.lunatic.server.EmailWriter;
 import com.gitlab.anlar.lunatic.server.StartResult;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -29,8 +30,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.web.WebView;
+import javafx.stage.DirectoryChooser;
 import org.apache.commons.lang3.SystemUtils;
-import org.apache.log4j.*;
+import org.apache.log4j.Level;
+import org.apache.log4j.PatternLayout;
+import org.apache.log4j.WriterAppender;
 import org.apache.log4j.spi.LoggingEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,6 +52,13 @@ public class MainWindowController implements Initializable {
     private Button startButton;
     @FXML
     private Label messagesField;
+
+    @FXML
+    private TextField dirField;
+    @FXML
+    private Button dirButton;
+    @FXML
+    private CheckBox saveDirCheck;
 
     @FXML
     private WebView emailText;
@@ -93,6 +104,15 @@ public class MainWindowController implements Initializable {
         updateMessagesCount();
     }
 
+    @FXML
+    private void handleDirButton(ActionEvent actionEvent) {
+        DirectoryChooser chooser = new DirectoryChooser();
+        File file = chooser.showDialog(dirButton.getScene().getWindow());
+        if (file != null) {
+            dirField.setText(file.getAbsolutePath());
+        }
+    }
+
     private void createLogPanelAppender() {
         WriterAppender appender = new WriterAppender() {
             @Override
@@ -108,6 +128,18 @@ public class MainWindowController implements Initializable {
     }
 
     private void initListeners() {
+        EmailServer.initEmailWriter(new EmailWriter.Config() {
+            @Override
+            public boolean isActive() {
+                return saveDirCheck.isSelected();
+            }
+
+            @Override
+            public String getDirectory() {
+                return dirField.getText();
+            }
+        });
+
         //noinspection unchecked
         messagesTable.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
             if (messagesTable.getSelectionModel().getSelectedItem() != null) {
@@ -121,7 +153,7 @@ public class MainWindowController implements Initializable {
             }
         });
 
-        EmailServer.getListener().addObserver((o, arg) -> Platform.runLater(() -> {
+        EmailServer.addObserver((o, arg) -> Platform.runLater(() -> {
             if (messages.isEmpty()) {
                 messages.add((Email) arg);
                 messagesTable.getSelectionModel().select(0);
@@ -151,6 +183,9 @@ public class MainWindowController implements Initializable {
         portField.setText(String.valueOf(config.getPort()));
         messagesField.setText("0");
         setStartButtonText(false);
+
+        dirField.setText(config.getDirectory());
+        saveDirCheck.setSelected(config.isWrite());
     }
 
     private void startServer() {

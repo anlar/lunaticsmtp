@@ -38,7 +38,7 @@ import java.util.Properties;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-public class EmailServerListener extends Observable implements SimpleMessageListener {
+public class EmailServerHandler extends Observable implements SimpleMessageListener {
     private Logger log = LoggerFactory.getLogger(getClass());
 
     private static final String TYPE_TEXT = "text/plain";

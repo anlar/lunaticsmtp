@@ -25,12 +25,17 @@ import org.subethamail.smtp.server.SMTPServer;
 
 import java.net.BindException;
 import java.net.InetAddress;
+import java.util.Observer;
 
 public class EmailServer {
     private static Logger log = LoggerFactory.getLogger(EmailServer.class);
 
-    private static EmailServerListener listener = new EmailServerListener();
+    private static EmailServerHandler listener = new EmailServerHandler();
     private static SMTPServer smtpServer = null;
+
+    public static void initEmailWriter(EmailWriter.Config config) {
+        addObserver(new EmailWriter(config));
+    }
 
     public static StartResult start(int port, InetAddress bindAddress) {
         try {
@@ -63,7 +68,7 @@ public class EmailServer {
         return smtpServer != null && smtpServer.isRunning();
     }
 
-    public static EmailServerListener getListener() {
-        return listener;
+    public static void addObserver(Observer observer) {
+        listener.addObserver(observer);
     }
 }

@@ -39,6 +39,12 @@ public class Config {
     @Parameter(names = {"-p", "--port"}, description = "Specify port for SMTP server")
     private int port = 2527;
 
+    @Parameter(names = {"-w", "--write"}, description = "Save incoming emails to disk")
+    private boolean write = false;
+
+    @Parameter(names = {"-d", "--directory"}, description = "Directory to save incoming messages")
+    private String directory = "incoming";
+
     public boolean isHelp() {
         return help;
     }
@@ -69,5 +75,21 @@ public class Config {
 
     public void setPort(int port) {
         this.port = port;
+    }
+
+    public boolean isWrite() {
+        return write;
+    }
+
+    public void setWrite(boolean write) {
+        this.write = write;
+    }
+
+    public String getDirectory() {
+        return directory;
+    }
+
+    public void setDirectory(String directory) {
+        this.directory = directory;
     }
 }
