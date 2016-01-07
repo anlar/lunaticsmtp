@@ -18,6 +18,7 @@
 
 package com.gitlab.anlar.lunatic.server;
 
+import com.gitlab.anlar.lunatic.server.auth.SMTPAuthHandlerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.subethamail.smtp.helper.SimpleMessageListenerAdapter;

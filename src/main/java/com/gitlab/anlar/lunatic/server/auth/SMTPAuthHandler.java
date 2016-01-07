@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.gitlab.anlar.lunatic.server;
+package com.gitlab.anlar.lunatic.server.auth;
 
 import org.subethamail.smtp.AuthenticationHandler;
 
