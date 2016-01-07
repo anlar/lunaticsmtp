@@ -18,35 +18,59 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
+<?import com.gitlab.anlar.lunatic.gui.control.DatePropertyValueFactory?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.web.WebView?>
-<?import com.gitlab.anlar.lunatic.gui.control.DatePropertyValueFactory?>
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.gitlab.anlar.lunatic.gui.MainWindowController">
 
     <top>
-        <GridPane alignment="CENTER_LEFT" hgap="10" vgap="10">
-            <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
-            </padding>
+        <BorderPane>
+            <left>
+                <GridPane alignment="CENTER_LEFT" hgap="10" vgap="10">
+                    <padding>
+                        <Insets top="10" right="10" bottom="10" left="10"/>
+                    </padding>
 
-            <Label text="Listening port:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-            <TextField fx:id="portField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-            <Button fx:id="startButton" GridPane.columnIndex="2" GridPane.rowIndex="0" onAction="#handleStartButton"/>
+                    <columnConstraints>
+                        <ColumnConstraints/>
+                        <ColumnConstraints prefWidth="100"/>
+                    </columnConstraints>
 
-            <Label text="Save message(s) to:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-            <TextField fx:id="dirField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-            <Button fx:id="dirButton" text="Open..." GridPane.columnIndex="2" GridPane.rowIndex="1" onAction="#handleDirButton"/>
+                    <Label text="Listening port:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                    <TextField fx:id="portField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                    <Button fx:id="startButton" prefWidth="90" GridPane.columnIndex="2" GridPane.rowIndex="0"
+                            onAction="#handleStartButton"/>
 
-            <CheckBox fx:id="saveDirCheck" text="Save incoming emails" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                    <Label text="Messages:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                    <Label id="messagesField" fx:id="messagesField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    <Button text="Clear" prefWidth="90" GridPane.columnIndex="2" GridPane.rowIndex="1"
+                            onAction="#handleClearButton"/>
+                </GridPane>
+            </left>
 
-            <Label text="Message(s) received:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-            <Label id="messagesField" fx:id="messagesField" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-            <Button text="Clear" GridPane.columnIndex="2" GridPane.rowIndex="3" onAction="#handleClearButton"/>
-        </GridPane>
+            <center>
+                <GridPane alignment="CENTER_LEFT" hgap="10" vgap="10">
+                    <padding>
+                        <Insets top="10" right="10" bottom="10" left="10"/>
+                    </padding>
+
+                    <CheckBox fx:id="saveDirCheck" text="Save messages"
+                              GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+
+                    <Label text="Email directory:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                    <TextField fx:id="dirField" prefWidth="300" editable="false"
+                               GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    <Button fx:id="dirButton" prefWidth="90" text="Choose..."
+                            GridPane.columnIndex="2" GridPane.rowIndex="1" onAction="#handleDirButton"/>
+
+                </GridPane>
+            </center>
+
+        </BorderPane>
     </top>
 
     <center>
