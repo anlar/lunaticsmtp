@@ -15,3 +15,8 @@ out/
 *.ipr
 *.iws
 .idea/
+
+
+### LunaticSMTP ###
+
+*.eml
