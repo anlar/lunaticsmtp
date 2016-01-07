@@ -76,7 +76,7 @@ public class MainWindowController implements Initializable {
 
         createLogPanelAppender();
 
-        initListeners();
+        initListeners(config);
         initElements(config);
 
         if (config.isStart()) {
@@ -125,7 +125,7 @@ public class MainWindowController implements Initializable {
         org.apache.log4j.Logger.getRootLogger().addAppender(appender);
     }
 
-    private void initListeners() {
+    private void initListeners(Config config) {
         EmailServer.initEmailWriter(new EmailWriter.Config() {
             @Override
             public boolean isActive() {
@@ -152,14 +152,12 @@ public class MainWindowController implements Initializable {
         });
 
         EmailServer.addObserver((o, arg) -> Platform.runLater(() -> {
-            if (messages.isEmpty()) {
-                messages.add((Email) arg);
-                messagesTable.getSelectionModel().select(0);
-            } else {
-                messages.add((Email) arg);
-            }
-
+            messages.add((Email) arg);
             updateMessagesCount();
+
+            if (config.isJumpToLast()) {
+                messagesTable.getSelectionModel().selectLast();
+            }
         }));
     }
 

@@ -45,6 +45,9 @@ public class Config {
     @Parameter(names = {"-d", "--directory"}, description = "Directory to save incoming messages")
     private String directory = "incoming";
 
+    @Parameter(names = {"-j", "--jump-to-last"}, description = "Automatically select last received email in GUI")
+    private boolean jumpToLast;
+
     public boolean isHelp() {
         return help;
     }
@@ -91,5 +94,13 @@ public class Config {
 
     public void setDirectory(String directory) {
         this.directory = directory;
+    }
+
+    public boolean isJumpToLast() {
+        return jumpToLast;
+    }
+
+    public void setJumpToLast(boolean jumpToLast) {
+        this.jumpToLast = jumpToLast;
     }
 }
