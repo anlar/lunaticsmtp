@@ -18,7 +18,7 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<?import com.gitlab.anlar.lunatic.gui.control.DatePropertyValueFactory?>
+<?import com.gitlab.anlar.lunatic.gui.control.*?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
@@ -79,30 +79,27 @@
                 <SplitPane orientation="VERTICAL">
 
                     <TableView fx:id="messagesTable">
-                        <columnResizePolicy>
-                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-                        </columnResizePolicy>
                         <columns>
-                            <TableColumn text="Subject">
+                            <PercentageTableColumn text="Subject" percentageWidth="45">
                                 <cellValueFactory>
                                     <PropertyValueFactory property="subject"/>
                                 </cellValueFactory>
-                            </TableColumn>
-                            <TableColumn text="From">
+                            </PercentageTableColumn>
+                            <PercentageTableColumn text="From" percentageWidth="20">
                                 <cellValueFactory>
                                     <PropertyValueFactory property="from"/>
                                 </cellValueFactory>
-                            </TableColumn>
-                            <TableColumn text="To">
+                            </PercentageTableColumn>
+                            <PercentageTableColumn text="To" percentageWidth="20">
                                 <cellValueFactory>
                                     <PropertyValueFactory property="to"/>
                                 </cellValueFactory>
-                            </TableColumn>
-                            <TableColumn text="Date">
+                            </PercentageTableColumn>
+                            <PercentageTableColumn text="Date" percentageWidth="15">
                                 <cellValueFactory>
                                     <DatePropertyValueFactory property="date" format="yyyy-MM-dd HH:mm:ss"/>
                                 </cellValueFactory>
-                            </TableColumn>
+                            </PercentageTableColumn>
                         </columns>
                         <items>
                             <FXCollections fx:id="messages" fx:factory="observableArrayList"/>
