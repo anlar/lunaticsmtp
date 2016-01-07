@@ -102,6 +102,7 @@ public class MainWindowController implements Initializable {
     private void handleClearButton(ActionEvent event) {
         messages.clear();
         updateMessagesCount();
+        serverLog.clear();
     }
 
     @FXML
