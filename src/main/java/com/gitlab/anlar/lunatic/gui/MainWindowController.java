@@ -36,15 +36,12 @@ import org.apache.log4j.Level;
 import org.apache.log4j.PatternLayout;
 import org.apache.log4j.WriterAppender;
 import org.apache.log4j.spi.LoggingEvent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainWindowController implements Initializable {
-    private Logger log = LoggerFactory.getLogger(getClass());
 
     @FXML
     private TextField portField;
@@ -190,7 +187,7 @@ public class MainWindowController implements Initializable {
     }
 
     private void startServer() {
-        StartResult result = EmailServer.start(Integer.parseInt(portField.getText()), null);
+        StartResult result = EmailServer.start(Integer.parseInt(portField.getText()));
 
         if (result.isSuccessful()) {
             portField.setDisable(true);

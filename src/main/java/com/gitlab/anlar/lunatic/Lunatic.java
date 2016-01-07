@@ -27,7 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Lunatic {
-    private static Logger log = LoggerFactory.getLogger(Lunatic.class);
+    private static final Logger log = LoggerFactory.getLogger(Lunatic.class);
 
     public static void main(String[] args) {
         Config config = Config.getInstance();
@@ -61,7 +61,7 @@ public class Lunatic {
             }
         });
 
-        StartResult result = EmailServer.start(port, null);
+        StartResult result = EmailServer.start(port);
 
         if (!result.isSuccessful()) {
             log.error("Failed to start SMTP server, {}", result.getMessage());

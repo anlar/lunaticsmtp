@@ -19,8 +19,6 @@
 package com.gitlab.anlar.lunatic.server;
 
 import com.gitlab.anlar.lunatic.dto.Email;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.subethamail.smtp.helper.SimpleMessageListener;
 
 import javax.mail.BodyPart;
@@ -39,7 +37,6 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class EmailServerHandler extends Observable implements SimpleMessageListener {
-    private Logger log = LoggerFactory.getLogger(getClass());
 
     private static final String TYPE_TEXT = "text/plain";
     private static final String TYPE_HTML = "text/html";

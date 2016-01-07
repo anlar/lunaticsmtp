@@ -21,7 +21,7 @@ package com.gitlab.anlar.lunatic;
 import com.beust.jcommander.Parameter;
 
 public class Config {
-    private static Config instance = new Config();
+    private static final Config instance = new Config();
 
     public static Config getInstance() {
         return instance;

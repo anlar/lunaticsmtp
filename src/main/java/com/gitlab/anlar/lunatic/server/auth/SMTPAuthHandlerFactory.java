@@ -33,7 +33,7 @@ public class SMTPAuthHandlerFactory implements AuthenticationHandlerFactory {
 
     @Override
     public List<String> getAuthenticationMechanisms() {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         result.add("LOGIN");
         return result;
     }

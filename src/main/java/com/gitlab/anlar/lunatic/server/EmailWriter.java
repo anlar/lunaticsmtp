@@ -39,9 +39,9 @@ public class EmailWriter implements Observer {
         String getDirectory();
     }
 
-    private Logger log = LoggerFactory.getLogger(getClass());
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
-    private Config config;
+    private final Config config;
 
     public EmailWriter(Config config) {
         this.config = config;

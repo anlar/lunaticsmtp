@@ -25,27 +25,25 @@ import org.subethamail.smtp.helper.SimpleMessageListenerAdapter;
 import org.subethamail.smtp.server.SMTPServer;
 
 import java.net.BindException;
-import java.net.InetAddress;
 import java.util.Observer;
 
 public class EmailServer {
-    private static Logger log = LoggerFactory.getLogger(EmailServer.class);
+    private static final Logger log = LoggerFactory.getLogger(EmailServer.class);
 
-    private static EmailServerHandler listener = new EmailServerHandler();
+    private static final EmailServerHandler listener = new EmailServerHandler();
     private static SMTPServer smtpServer = null;
 
     public static void initEmailWriter(EmailWriter.Config config) {
         addObserver(new EmailWriter(config));
     }
 
-    public static StartResult start(int port, InetAddress bindAddress) {
+    public static StartResult start(int port) {
         try {
             smtpServer = new SMTPServer(new SimpleMessageListenerAdapter(listener), new SMTPAuthHandlerFactory());
-            smtpServer.setBindAddress(bindAddress);
             smtpServer.setPort(port);
             smtpServer.start();
 
-            return new StartResult(true);
+            return new StartResult(true, null);
         } catch (Throwable e) {
             log.error("Failed to start SMTP server", e);
 

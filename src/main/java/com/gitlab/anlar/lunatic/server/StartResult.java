@@ -22,10 +22,6 @@ public class StartResult {
     private boolean successful;
     private String message;
 
-    public StartResult(boolean successful) {
-        this.successful = successful;
-    }
-
     public StartResult(boolean successful, String message) {
         this.successful = successful;
         this.message = message;
