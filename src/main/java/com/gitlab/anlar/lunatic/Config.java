@@ -19,7 +19,9 @@
 package com.gitlab.anlar.lunatic;
 
 import com.beust.jcommander.Parameter;
+import com.beust.jcommander.Parameters;
 
+@Parameters(resourceBundle = "i18n/messages")
 public class Config {
     private static final Config instance = new Config();
 
@@ -27,25 +29,25 @@ public class Config {
         return instance;
     }
 
-    @Parameter(names = {"-h", "--help"}, help = true, description = "Show short summary of options")
+    @Parameter(names = {"-h", "--help"}, help = true, descriptionKey = "cli.help")
     private boolean help;
 
-    @Parameter(names = {"-s", "--start"}, description = "Starts SMTP server at application launch")
+    @Parameter(names = {"-s", "--start"}, descriptionKey = "cli.start")
     private boolean start = false;
 
-    @Parameter(names = {"-n", "--no-gui"}, description = "Starts application without GUI (should be used with -s argument)")
+    @Parameter(names = {"-n", "--no-gui"}, descriptionKey = "cli.nogui")
     private boolean noGui = false;
 
-    @Parameter(names = {"-p", "--port"}, description = "Specify port for SMTP server")
+    @Parameter(names = {"-p", "--port"}, descriptionKey = "cli.port")
     private int port = 2527;
 
-    @Parameter(names = {"-w", "--write"}, description = "Save incoming emails to disk")
+    @Parameter(names = {"-w", "--write"}, descriptionKey = "cli.write")
     private boolean write = false;
 
-    @Parameter(names = {"-d", "--directory"}, description = "Directory to save incoming messages")
+    @Parameter(names = {"-d", "--directory"}, descriptionKey = "cli.directory")
     private String directory = "incoming";
 
-    @Parameter(names = {"-j", "--jump-to-last"}, description = "Automatically select last received email in GUI")
+    @Parameter(names = {"-j", "--jump-to-last"}, descriptionKey = "cli.jump")
     private boolean jumpToLast;
 
     public boolean isHelp() {

@@ -19,6 +19,7 @@
 package com.gitlab.anlar.lunatic.server;
 
 import com.gitlab.anlar.lunatic.server.auth.SMTPAuthHandlerFactory;
+import com.gitlab.anlar.lunatic.util.Messages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.subethamail.smtp.helper.SimpleMessageListenerAdapter;
@@ -48,11 +49,11 @@ public class EmailServer {
             log.error("Failed to start SMTP server", e);
 
             if (e.getCause() instanceof BindException) {
-                return new StartResult(false, String.format("%s, port: %s", e.getCause().getMessage(), port));
+                return new StartResult(false, String.format(Messages.get("%s, port: %s"), e.getCause().getMessage(), port));
             } else if (e.getCause() instanceof IllegalArgumentException && e.getMessage().contains("out of range")) {
-                return new StartResult(false, String.format("Port out of range: %s", port));
+                return new StartResult(false, String.format(Messages.get("server.error.outofrange"), port));
             } else {
-                return new StartResult(false, e.getMessage());
+                return new StartResult(false, e.getLocalizedMessage());
             }
         }
     }

@@ -40,14 +40,14 @@
                         <ColumnConstraints prefWidth="100"/>
                     </columnConstraints>
 
-                    <Label text="Listening port:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                    <Label text="%gui.label.port" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
                     <TextField fx:id="portField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
                     <Button fx:id="startButton" prefWidth="90" GridPane.columnIndex="2" GridPane.rowIndex="0"
                             onAction="#handleStartButton"/>
 
-                    <Label text="Messages:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                    <Label text="%gui.label.messages" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
                     <Label id="messagesField" fx:id="messagesField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                    <Button text="Clear" prefWidth="90" GridPane.columnIndex="2" GridPane.rowIndex="1"
+                    <Button text="%gui.button.clear" prefWidth="90" GridPane.columnIndex="2" GridPane.rowIndex="1"
                             onAction="#handleClearButton"/>
                 </GridPane>
             </left>
@@ -58,13 +58,13 @@
                         <Insets top="10" right="10" bottom="10" left="10"/>
                     </padding>
 
-                    <CheckBox fx:id="saveDirCheck" text="Save messages"
+                    <CheckBox fx:id="saveDirCheck" text="%gui.checkbox.save"
                               GridPane.columnIndex="0" GridPane.rowIndex="0"/>
 
-                    <Label text="Email directory:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                    <Label text="%gui.label.directory" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
                     <TextField fx:id="dirField" prefWidth="300" editable="false"
                                GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                    <Button fx:id="dirButton" prefWidth="90" text="Choose..."
+                    <Button fx:id="dirButton" prefWidth="90" text="%gui.button.directory"
                             GridPane.columnIndex="2" GridPane.rowIndex="1" onAction="#handleDirButton"/>
 
                 </GridPane>
@@ -75,27 +75,27 @@
 
     <center>
         <TabPane tabClosingPolicy="UNAVAILABLE" side="LEFT">
-            <Tab text="Emails">
+            <Tab text="%gui.tab.emails">
                 <SplitPane orientation="VERTICAL">
 
                     <TableView fx:id="messagesTable">
                         <columns>
-                            <PercentageTableColumn text="Subject" percentageWidth="45">
+                            <PercentageTableColumn text="%gui.table.subject" percentageWidth="45">
                                 <cellValueFactory>
                                     <PropertyValueFactory property="subject"/>
                                 </cellValueFactory>
                             </PercentageTableColumn>
-                            <PercentageTableColumn text="From" percentageWidth="20">
+                            <PercentageTableColumn text="%gui.table.from" percentageWidth="20">
                                 <cellValueFactory>
                                     <PropertyValueFactory property="from"/>
                                 </cellValueFactory>
                             </PercentageTableColumn>
-                            <PercentageTableColumn text="To" percentageWidth="20">
+                            <PercentageTableColumn text="%gui.table.to" percentageWidth="20">
                                 <cellValueFactory>
                                     <PropertyValueFactory property="to"/>
                                 </cellValueFactory>
                             </PercentageTableColumn>
-                            <PercentageTableColumn text="Date" percentageWidth="15">
+                            <PercentageTableColumn text="%gui.table.date" percentageWidth="15">
                                 <cellValueFactory>
                                     <DatePropertyValueFactory property="date" format="yyyy-MM-dd HH:mm:ss"/>
                                 </cellValueFactory>
@@ -107,10 +107,10 @@
                     </TableView>
 
                     <TabPane tabClosingPolicy="UNAVAILABLE" side="LEFT">
-                        <Tab text="HTML">
+                        <Tab text="%gui.tab.html">
                             <WebView fx:id="emailText"/>
                         </Tab>
-                        <Tab text="RAW">
+                        <Tab text="%gui.tab.raw">
                             <TextArea fx:id="rawText" editable="false"/>
                         </Tab>
                     </TabPane>
@@ -118,7 +118,7 @@
                 </SplitPane>
             </Tab>
 
-            <Tab text="Logs">
+            <Tab text="%gui.tab.logs">
                 <TextArea fx:id="serverLog" editable="false"/>
             </Tab>
         </TabPane>

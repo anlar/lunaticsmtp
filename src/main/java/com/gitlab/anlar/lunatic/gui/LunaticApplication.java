@@ -19,6 +19,7 @@
 package com.gitlab.anlar.lunatic.gui;
 
 import com.gitlab.anlar.lunatic.server.EmailServer;
+import com.gitlab.anlar.lunatic.util.Messages;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -30,7 +31,8 @@ public class LunaticApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         //noinspection ConstantConditions
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("gui/main_window.fxml"));
+        Parent root = FXMLLoader.load(
+                getClass().getClassLoader().getResource("gui/main_window.fxml"), Messages.getResources());
 
         Scene scene = new Scene(root, 1024, 768);
 

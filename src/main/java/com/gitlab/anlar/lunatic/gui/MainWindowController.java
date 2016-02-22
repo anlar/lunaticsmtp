@@ -23,6 +23,7 @@ import com.gitlab.anlar.lunatic.dto.Email;
 import com.gitlab.anlar.lunatic.server.EmailServer;
 import com.gitlab.anlar.lunatic.server.EmailWriter;
 import com.gitlab.anlar.lunatic.server.StartResult;
+import com.gitlab.anlar.lunatic.util.Messages;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -192,10 +193,9 @@ public class MainWindowController implements Initializable {
             setStartButtonText(true);
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("LunaticSMTP error");
-            alert.setHeaderText("Failed to start SMTP server");
-            alert.setContentText(String.format(
-                    "%s\nYou may check application logs for additional details", result.getMessage()));
+            alert.setTitle(Messages.get("gui.error.start.title"));
+            alert.setHeaderText(Messages.get("gui.error.start.header"));
+            alert.setContentText(String.format("%s\n" + Messages.get("gui.error.start.body"), result.getMessage()));
 
             // expand default width to make sure that second content line fill fit there
             alert.setResizable(true);
@@ -212,7 +212,7 @@ public class MainWindowController implements Initializable {
     }
 
     private void setStartButtonText(boolean isRunning) {
-        startButton.setText(isRunning ? "Stop" : "Start");
+        startButton.setText(isRunning ? Messages.get("gui.button.stop") : Messages.get("gui.button.start"));
     }
 
     private void updateMessagesCount() {
