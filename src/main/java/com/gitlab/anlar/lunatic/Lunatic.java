@@ -32,6 +32,7 @@ public class Lunatic {
     public static void main(String[] args) {
         Config config = Config.getInstance();
         JCommander commander = new JCommander(config, args);
+        commander.setProgramName("java -jar LunaticSMTP.jar");
 
         if (config.isHelp()) {
             commander.usage();
