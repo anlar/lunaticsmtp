@@ -2,6 +2,8 @@
 
 Dummy SMTP server with JavaFX gui for testing email sending applications.
 
+![screenshot_linux](https://github.com/anlar/LunaticSMTP/raw/master/doc/images/screenshot_linux.png)
+
 ## Requirements
 
 You need Java 8u40 or newer to build and run this application.
