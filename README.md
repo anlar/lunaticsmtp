@@ -24,7 +24,7 @@ You need Java 8u40 or newer to build and run this application.
            Default: false
         -p, --port
            Specify port for SMTP server
-           Default: 2527
+           Default: 2525
         -s, --start
            Starts SMTP server at application launch
            Default: false

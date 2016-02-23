@@ -39,7 +39,7 @@ public class Config {
     private boolean noGui = false;
 
     @Parameter(names = {"-p", "--port"}, descriptionKey = "cli.port")
-    private int port = 2527;
+    private int port = 2525;
 
     @Parameter(names = {"-w", "--write"}, descriptionKey = "cli.write")
     private boolean write = false;
