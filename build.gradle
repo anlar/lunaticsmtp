@@ -31,6 +31,9 @@ ext {
     baseVersion = 'dev'
     mainClass = 'com.gitlab.anlar.lunatic.Lunatic'
     author = 'Anton Larionov'
+
+    buildTime = new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+    gitRevision = 'git rev-parse HEAD'.execute().text.trim()
 }
 
 idea {
@@ -53,29 +56,19 @@ tasks.withType(Jar) {
     manifest {
         attributes(
                 'Created-By': "${System.getProperty("java.runtime.version")} (${System.getProperty("java.vm.vendor")})",
-                'Build-Time': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                'Build-Time': buildTime,
 
                 'Specification-Title': applicationName,
                 'Specification-Version': baseVersion,
                 'Specification-Vendor': author,
 
                 'Implementation-Title': applicationName,
-                'Implementation-Version': baseVersion + '-' + 'git rev-parse HEAD'.execute().text.trim(),
+                'Implementation-Version': baseVersion + '-' + gitRevision,
                 'Implementation-Vendor': author,
 
                 'Main-Class': mainClass
         )
     }
-}
-
-task('releaseDev', type: Jar, description: 'Assembles a jar archive with application (version + revision).') {
-    baseName = applicationName
-    version = baseVersion + '-' + 'git rev-parse --short HEAD'.execute().text.trim()
-
-    from {
-        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-    }
-    with jar
 }
 
 task('release', type: Jar, description: 'Assembles a jar archive with application.') {
