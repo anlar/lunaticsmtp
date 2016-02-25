@@ -23,6 +23,7 @@ import com.gitlab.anlar.lunatic.gui.LunaticApplication;
 import com.gitlab.anlar.lunatic.server.EmailServer;
 import com.gitlab.anlar.lunatic.server.EmailWriter;
 import com.gitlab.anlar.lunatic.server.StartResult;
+import com.gitlab.anlar.lunatic.util.Version;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,7 +36,7 @@ public class Lunatic {
         commander.setProgramName("java -jar LunaticSMTP.jar");
 
         if (config.isHelp()) {
-            commander.usage();
+            printHelp(commander);
         } else {
             if (config.isNoGui()) {
                 if (config.isStart()) {
@@ -47,6 +48,13 @@ public class Lunatic {
                 LunaticApplication.launch(LunaticApplication.class, args);
             }
         }
+    }
+
+    private static void printHelp(JCommander commander) {
+        StringBuilder sb = new StringBuilder();
+        commander.usage(sb);
+        sb.insert(0, String.format("LunaticSMTP, version %s, revision %s\n", Version.getVersion(), Version.getGitShortRevision()));
+        JCommander.getConsole().println(sb.toString());
     }
 
     private static void startServer(int port, boolean isWrite, String directory) {

@@ -20,6 +20,7 @@ package com.gitlab.anlar.lunatic.gui;
 
 import com.gitlab.anlar.lunatic.server.EmailServer;
 import com.gitlab.anlar.lunatic.util.Messages;
+import com.gitlab.anlar.lunatic.util.Version;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -39,7 +40,7 @@ public class LunaticApplication extends Application {
         //noinspection ConstantConditions
         scene.getStylesheets().add(getClass().getClassLoader().getResource("gui/main.css").toExternalForm());
 
-        stage.setTitle("LunaticSMTP");
+        stage.setTitle("LunaticSMTP " + Version.getVersion());
         stage.setScene(scene);
         stage.show();
     }
