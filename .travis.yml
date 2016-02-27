@@ -8,4 +8,12 @@ addons:
     packages:
       - oracle-java8-installer
 
+deploy:
+  provider: releases
+  api_key: "${API_KEY}"
+  file: "build/libs/LunaticSMTP-${TRAVIS_TAG}.jar"
+  skip_cleanup: true
+  on:
+    tags: true
+
 script: gradle release
