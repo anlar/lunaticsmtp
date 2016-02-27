@@ -28,7 +28,7 @@ targetCompatibility = 1.8
 
 ext {
     applicationName = 'LunaticSMTP'
-    baseVersion = 'DEV'
+    baseVersion = '0.1.0'
     mainClass = 'com.gitlab.anlar.lunatic.Lunatic'
     author = 'Anton Larionov'
 
@@ -74,7 +74,7 @@ tasks.withType(Jar) {
 
 task('release', type: Jar, description: 'Assembles a jar archive with application.') {
     baseName = applicationName
-    version = baseVersion
+    version = 'v' + baseVersion
 
     Properties props = new Properties()
     props.setProperty('version', baseVersion)
