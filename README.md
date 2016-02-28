@@ -45,9 +45,13 @@ You need Java 8u40 or newer to build and run this application.
 
 ## Build
 
-To build it you need Gradle:
+To build it you need Gradle and git. From project directory execute the following:
 
     $ gradle release
+
+Result jar will be created in `build/libs`.
+
+Note: if you don't have git installed you should remove from `build.gradle` git invocation code at `gitRevision` and `gitShortRevision` variables.
 
 ## Copyright
 
