@@ -63,7 +63,7 @@ public class MainWindowController implements Initializable {
     @FXML
     private TextArea rawText;
     @FXML
-    private TableView messagesTable;
+    private TableView<Email> messagesTable;
 
     @FXML
     private TextArea serverLog;
@@ -139,12 +139,10 @@ public class MainWindowController implements Initializable {
             }
         });
 
-        //noinspection unchecked
         messagesTable.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
             if (messagesTable.getSelectionModel().getSelectedItem() != null) {
-                Email email = (Email) newValue;
-                emailText.getEngine().loadContent(email.getBody(), email.getBodyType());
-                rawText.setText(email.getContent());
+                emailText.getEngine().loadContent(newValue.getBody(), newValue.getBodyType());
+                rawText.setText(newValue.getContent());
             } else {
                 emailText.getEngine().loadContent("");
                 rawText.setText(null);
