@@ -25,6 +25,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class LunaticApplication extends Application {
@@ -41,6 +42,7 @@ public class LunaticApplication extends Application {
         scene.getStylesheets().add(getClass().getClassLoader().getResource("gui/main.css").toExternalForm());
 
         stage.setTitle("LunaticSMTP " + Version.getVersion());
+        stage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream("icon.png")));
         stage.setScene(scene);
         stage.show();
     }
