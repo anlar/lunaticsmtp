@@ -30,6 +30,11 @@ You need Java 8u40 or newer to build and run this application.
         -s, --start
            Starts SMTP server at application launch
            Default: false
+        -t, --tray-mode
+           Set tray mode (none: disable tray; enable: enable tray; minimize: enable
+           tray and start application minimized)
+           Default: none
+           Possible Values: [none, enable, minimize]
         -w, --write
            Save incoming emails to disk
            Default: false

@@ -23,6 +23,12 @@ import com.beust.jcommander.Parameters;
 
 @Parameters(resourceBundle = "i18n/messages")
 public class Config {
+    public enum TrayMode {
+        none,
+        enable,
+        minimize
+    }
+
     private static final Config instance = new Config();
 
     public static Config getInstance() {
@@ -49,6 +55,9 @@ public class Config {
 
     @Parameter(names = {"-j", "--jump-to-last"}, descriptionKey = "cli.jump")
     private boolean jumpToLast;
+
+    @Parameter(names = {"-t", "--tray-mode"}, descriptionKey = "cli.tray")
+    private TrayMode trayMode = TrayMode.none;
 
     public boolean isHelp() {
         return help;
@@ -104,5 +113,13 @@ public class Config {
 
     public void setJumpToLast(boolean jumpToLast) {
         this.jumpToLast = jumpToLast;
+    }
+
+    public TrayMode getTrayMode() {
+        return trayMode;
+    }
+
+    public void setTrayMode(TrayMode trayMode) {
+        this.trayMode = trayMode;
     }
 }
