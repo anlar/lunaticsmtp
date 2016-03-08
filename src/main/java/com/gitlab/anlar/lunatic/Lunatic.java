@@ -21,7 +21,7 @@ package com.gitlab.anlar.lunatic;
 import com.beust.jcommander.JCommander;
 import com.gitlab.anlar.lunatic.gui.LunaticApplication;
 import com.gitlab.anlar.lunatic.server.EmailServer;
-import com.gitlab.anlar.lunatic.server.EmailWriter;
+import com.gitlab.anlar.lunatic.server.SaverConfig;
 import com.gitlab.anlar.lunatic.server.StartResult;
 import com.gitlab.anlar.lunatic.util.Version;
 import org.slf4j.Logger;
@@ -58,7 +58,7 @@ public class Lunatic {
     }
 
     private static void startServer(int port, boolean isWrite, String directory) {
-        EmailServer.initEmailWriter(new EmailWriter.Config() {
+        EmailServer.initEmailWriter(new SaverConfig() {
             @Override
             public boolean isActive() {
                 return isWrite;

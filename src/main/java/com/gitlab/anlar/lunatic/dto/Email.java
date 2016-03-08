@@ -31,6 +31,8 @@ public class Email {
     private String body;
     private String bodyType;
 
+    private String filePath;
+
     public Email() {
         // do nothing
     }
@@ -95,5 +97,13 @@ public class Email {
 
     public String getBodyType() {
         return bodyType;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 }

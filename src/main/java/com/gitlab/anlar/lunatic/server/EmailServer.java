@@ -31,11 +31,11 @@ import java.util.Observer;
 public class EmailServer {
     private static final Logger log = LoggerFactory.getLogger(EmailServer.class);
 
-    private static final EmailServerHandler listener = new EmailServerHandler();
+    private static EmailServerHandler listener = null;
     private static SMTPServer smtpServer = null;
 
-    public static void initEmailWriter(EmailWriter.Config config) {
-        addObserver(new EmailWriter(config));
+    public static void initEmailWriter(SaverConfig config) {
+        listener = new EmailServerHandler(config);
     }
 
     public static StartResult start(int port) {

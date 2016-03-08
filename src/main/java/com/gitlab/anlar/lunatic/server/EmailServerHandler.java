@@ -19,6 +19,8 @@
 package com.gitlab.anlar.lunatic.server;
 
 import com.gitlab.anlar.lunatic.dto.Email;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.subethamail.smtp.helper.SimpleMessageListener;
 
 import javax.mail.BodyPart;
@@ -26,20 +28,29 @@ import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
+import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.Date;
-import java.util.Observable;
-import java.util.Properties;
-import java.util.Scanner;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.regex.Pattern;
 
 public class EmailServerHandler extends Observable implements SimpleMessageListener {
+    private static final Logger log = LoggerFactory.getLogger(EmailServerHandler.class);
 
     private static final String TYPE_TEXT = "text/plain";
     private static final String TYPE_HTML = "text/html";
+
+    private SaverConfig config;
+
+    public EmailServerHandler(SaverConfig config) {
+        this.config = config;
+    }
 
     @Override
     public boolean accept(String from, String recipient) {
@@ -50,6 +61,8 @@ public class EmailServerHandler extends Observable implements SimpleMessageListe
     public void deliver(String from, String recipient, InputStream data) throws IOException {
         try {
             Email email = parseMessage(from, recipient, data);
+            String filePath = save(email);
+            email.setFilePath(filePath);
 
             this.setChanged();
             this.notifyObservers(email);
@@ -109,5 +122,31 @@ public class EmailServerHandler extends Observable implements SimpleMessageListe
 
     private boolean isSuitableContentType(String value, String type) {
         return Pattern.compile(Pattern.quote(type), Pattern.CASE_INSENSITIVE).matcher(value).find();
+    }
+
+    private String save(Email email) {
+        if (config.isActive()) {
+            Path dir = Paths.get(config.getDirectory());
+            Path file = Paths.get(config.getDirectory(), getFileName(email));
+
+            try {
+                Files.createDirectories(dir);
+                try (BufferedWriter writer = Files.newBufferedWriter(file)) {
+                    writer.write(email.getContent());
+                }
+                log.info("Saved email to '{}'", file.toAbsolutePath());
+                return file.toAbsolutePath().toString();
+            } catch (IOException e) {
+                log.error("Failed to save email to '{}'", file.toAbsolutePath(), e);
+            }
+        }
+
+        return null;
+    }
+
+    private String getFileName(Email email) {
+        return new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss_").format(email.getDate())
+                + UUID.randomUUID().toString().substring(0, 8)
+                + ".eml";
     }
 }

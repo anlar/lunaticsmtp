@@ -21,7 +21,7 @@ package com.gitlab.anlar.lunatic.gui;
 import com.gitlab.anlar.lunatic.Config;
 import com.gitlab.anlar.lunatic.dto.Email;
 import com.gitlab.anlar.lunatic.server.EmailServer;
-import com.gitlab.anlar.lunatic.server.EmailWriter;
+import com.gitlab.anlar.lunatic.server.SaverConfig;
 import com.gitlab.anlar.lunatic.server.StartResult;
 import com.gitlab.anlar.lunatic.util.Messages;
 import javafx.application.Platform;
@@ -127,7 +127,7 @@ public class MainWindowController implements Initializable {
     }
 
     private void initListeners(Config config) {
-        EmailServer.initEmailWriter(new EmailWriter.Config() {
+        EmailServer.initEmailWriter(new SaverConfig() {
             @Override
             public boolean isActive() {
                 return saveDirCheck.isSelected();
