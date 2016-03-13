@@ -77,7 +77,7 @@ tasks.withType(Jar) {
     }
 }
 
-task('release', type: Jar, description: 'Assembles a jar archive with application.') {
+task('release', type: Jar, dependsOn: 'check', description: 'Assembles a jar archive with application.') {
     baseName = applicationName
     version = 'v' + baseVersion
 
