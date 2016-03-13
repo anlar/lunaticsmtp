@@ -71,4 +71,8 @@ public class EmailServer {
     public static void addObserver(Observer observer) {
         listener.addObserver(observer);
     }
+
+    public static void clear() {
+        listener.clearStorage();
+    }
 }

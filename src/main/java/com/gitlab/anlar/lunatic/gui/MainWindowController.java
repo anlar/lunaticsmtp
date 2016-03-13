@@ -21,6 +21,7 @@ package com.gitlab.anlar.lunatic.gui;
 import com.gitlab.anlar.lunatic.Config;
 import com.gitlab.anlar.lunatic.dto.Email;
 import com.gitlab.anlar.lunatic.server.EmailServer;
+import com.gitlab.anlar.lunatic.server.Event;
 import com.gitlab.anlar.lunatic.server.SaverConfig;
 import com.gitlab.anlar.lunatic.server.StartResult;
 import com.gitlab.anlar.lunatic.util.Messages;
@@ -98,9 +99,7 @@ public class MainWindowController implements Initializable {
 
     @FXML
     private void handleClearButton(ActionEvent event) {
-        messages.clear();
-        updateMessagesCount();
-        serverLog.clear();
+        EmailServer.clear();
     }
 
     @FXML
@@ -151,11 +150,22 @@ public class MainWindowController implements Initializable {
         });
 
         EmailServer.addObserver((o, arg) -> Platform.runLater(() -> {
-            messages.add((Email) arg);
-            updateMessagesCount();
+            Event event = (Event) arg;
 
-            if (config.isJumpToLast()) {
-                messagesTable.getSelectionModel().selectLast();
+            switch (event.getType()) {
+                case incoming:
+                    messages.add(event.getEmail());
+                    updateMessagesCount();
+
+                    if (config.isJumpToLast()) {
+                        messagesTable.getSelectionModel().selectLast();
+                    }
+                    break;
+                case clear:
+                    messages.clear();
+                    updateMessagesCount();
+                    serverLog.clear();
+                    break;
             }
         }));
     }

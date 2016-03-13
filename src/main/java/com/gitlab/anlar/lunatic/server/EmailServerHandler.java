@@ -38,6 +38,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.regex.Pattern;
 
 public class EmailServerHandler extends Observable implements SimpleMessageListener {
@@ -48,8 +50,14 @@ public class EmailServerHandler extends Observable implements SimpleMessageListe
 
     private SaverConfig config;
 
+    private Lock storageLock;
+    private List<Email> storage;
+
     public EmailServerHandler(SaverConfig config) {
         this.config = config;
+
+        this.storageLock = new ReentrantLock();
+        this.storage = new LinkedList<>();
     }
 
     @Override
@@ -64,8 +72,7 @@ public class EmailServerHandler extends Observable implements SimpleMessageListe
             String filePath = save(email);
             email.setFilePath(filePath);
 
-            this.setChanged();
-            this.notifyObservers(email);
+            putIntoStorage(email);
         } catch (MessagingException e) {
             // do nothing
         }
@@ -148,5 +155,40 @@ public class EmailServerHandler extends Observable implements SimpleMessageListe
         return new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss_").format(email.getDate())
                 + UUID.randomUUID().toString().substring(0, 8)
                 + ".eml";
+    }
+
+    // Storage related
+
+    private void putIntoStorage(Email email) {
+        storageLock.lock();
+        try {
+            storage.add(email);
+        } finally {
+            storageLock.unlock();
+        }
+
+        this.setChanged();
+        this.notifyObservers(new Event(Event.Type.incoming, email));
+    }
+
+    protected void clearStorage() {
+        storageLock.lock();
+        try {
+            storage.stream().filter(email -> email.getFilePath() != null).forEach(email -> {
+                try {
+                    Files.deleteIfExists(Paths.get(email.getFilePath()));
+                    log.debug("Deleted email file '{}'", email.getFilePath());
+                } catch (IOException e) {
+                    log.warn("Failed to delete email file '{}'", email.getFilePath(), e);
+                }
+            });
+
+            storage.clear();
+        } finally {
+            storageLock.unlock();
+        }
+
+        this.setChanged();
+        this.notifyObservers(new Event(Event.Type.clear));
     }
 }
