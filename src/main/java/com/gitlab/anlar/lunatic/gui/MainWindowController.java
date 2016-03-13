@@ -119,8 +119,7 @@ public class MainWindowController implements Initializable {
             }
         };
         appender.setName("GuiLogger");
-        appender.setLayout(new PatternLayout("%d{HH:mm:ss.SSS} %-5p [%c{1}]: %m%n"));
-        appender.setThreshold(Level.DEBUG);
+        appender.setLayout(new PatternLayout("%d{HH:mm:ss.SSS} - %m%n"));
 
         org.apache.log4j.Logger.getRootLogger().addAppender(appender);
     }

@@ -177,7 +177,7 @@ public class EmailServerHandler extends Observable implements SimpleMessageListe
             storage.stream().filter(email -> email.getFilePath() != null).forEach(email -> {
                 try {
                     Files.deleteIfExists(Paths.get(email.getFilePath()));
-                    log.debug("Deleted email file '{}'", email.getFilePath());
+                    log.info("Deleted email file '{}'", email.getFilePath());
                 } catch (IOException e) {
                     log.warn("Failed to delete email file '{}'", email.getFilePath(), e);
                 }
