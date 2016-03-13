@@ -32,8 +32,7 @@ public class Lunatic {
 
     public static void main(String[] args) {
         Config config = Config.getInstance();
-        JCommander commander = new JCommander(config, args);
-        commander.setProgramName("java -jar LunaticSMTP.jar");
+        JCommander commander = createCommander(config, args);
 
         if (config.isHelp()) {
             printHelp(commander);
@@ -50,7 +49,13 @@ public class Lunatic {
         }
     }
 
-    private static void printHelp(JCommander commander) {
+    protected static JCommander createCommander(Config config, String[] args) {
+        JCommander commander = new JCommander(config, args);
+        commander.setProgramName("java -jar LunaticSMTP.jar");
+        return commander;
+    }
+
+    protected static void printHelp(JCommander commander) {
         StringBuilder sb = new StringBuilder();
         commander.usage(sb);
         sb.insert(0, String.format("LunaticSMTP, version %s, revision %s\n", Version.getVersion(), Version.getGitShortRevision()));
