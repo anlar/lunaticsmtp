@@ -76,7 +76,7 @@
     <center>
         <TabPane tabClosingPolicy="UNAVAILABLE" side="LEFT">
             <Tab text="%gui.tab.emails">
-                <SplitPane orientation="VERTICAL">
+                <SplitPane orientation="VERTICAL" dividerPositions="0.3">
 
                     <TableView fx:id="messagesTable">
                         <columns>
