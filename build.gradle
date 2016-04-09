@@ -32,7 +32,7 @@ targetCompatibility = 1.8
 
 ext {
     applicationName = 'LunaticSMTP'
-    baseVersion = '0.1.0'
+    baseVersion = '0.2.0'
     mainClass = 'com.gitlab.anlar.lunatic.Lunatic'
     author = 'Anton Larionov'
 

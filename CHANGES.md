@@ -1,4 +1,4 @@
-## ???
+## v0.2.0 (2016-04-09) Disbelief Aspect
 
 * Created application icon.
 * Added tray support.
