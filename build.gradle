@@ -56,7 +56,7 @@ dependencies {
     compile 'org.subethamail:subethasmtp:3.1.7'
 
     testCompile 'junit:junit:4.12'
-    testCompile "org.testfx:testfx-legacy:4.0.3-alpha"
+    testCompile "org.testfx:testfx-legacy:4.0.4-alpha"
 }
 
 tasks.withType(Jar) {
