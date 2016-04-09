@@ -36,7 +36,7 @@ public class ConfigTest {
 
     @Test
     public void configShortOptions() {
-        String[] args = new String[]{"-d", "dir", "-h", "-j", "-n", "-p", "1234", "-s", "-t", "none", "-w"};
+        String[] args = new String[]{"-d", "dir", "-h", "-j", "-n", "-p", "1234", "-s", "-t", "none", "-w", "-c"};
         configOptions(args);
     }
 
@@ -44,7 +44,7 @@ public class ConfigTest {
     public void configLongOptions() {
         String[] args = new String[]{
                 "--directory", "dir", "--help", "--jump-to-last", "--no-gui",
-                "--port", "1234", "--start", "--tray-mode", "none", "--write"};
+                "--port", "1234", "--start", "--tray-mode", "none", "--write", "--cleanup"};
         configOptions(args);
     }
 

@@ -77,7 +77,17 @@ public class Lunatic {
 
         StartResult result = EmailServer.start(port);
 
-        if (!result.isSuccessful()) {
+        if (result.isSuccessful()) {
+            Runtime.getRuntime().addShutdownHook(new Thread() {
+                @Override
+                public void run() {
+                    EmailServer.stop();
+                    if (Config.getInstance().isCleanup()) {
+                        EmailServer.clear();
+                    }
+                }
+            });
+        } else {
             log.error("Failed to start SMTP server, {}", result.getMessage());
         }
     }

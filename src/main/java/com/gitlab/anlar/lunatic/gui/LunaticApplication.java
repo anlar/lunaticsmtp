@@ -69,6 +69,10 @@ public class LunaticApplication extends Application {
     public void stop() throws Exception {
         EmailServer.stop();
 
+        if (Config.getInstance().isCleanup()) {
+            EmailServer.clear();
+        }
+
         if (trayIcon != null) {
             SystemTray.getSystemTray().remove(trayIcon);
         }

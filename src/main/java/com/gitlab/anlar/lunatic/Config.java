@@ -50,6 +50,9 @@ public class Config {
     @Parameter(names = {"-w", "--write"}, descriptionKey = "cli.write")
     private boolean write = false;
 
+    @Parameter(names = {"-c", "--cleanup"}, descriptionKey = "cli.cleanup")
+    private boolean cleanup = false;
+
     @Parameter(names = {"-d", "--directory"}, descriptionKey = "cli.directory")
     private String directory = "incoming";
 
@@ -97,6 +100,14 @@ public class Config {
 
     public void setWrite(boolean write) {
         this.write = write;
+    }
+
+    public boolean isCleanup() {
+        return cleanup;
+    }
+
+    public void setCleanup(boolean cleanup) {
+        this.cleanup = cleanup;
     }
 
     public String getDirectory() {
