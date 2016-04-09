@@ -16,6 +16,9 @@ You need Java 8u40 or newer to build and run this application.
 
     Usage: java -jar LunaticSMTP.jar [options]
       Options:
+        -c, --cleanup
+           Remove saved on disk emails after shutdown
+           Default: false
         -d, --directory
            Directory to save incoming messages
            Default: incoming
