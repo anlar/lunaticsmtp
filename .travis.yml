@@ -11,9 +11,11 @@ addons:
 deploy:
   provider: releases
   api_key: "${API_KEY}"
-  file: "build/libs/LunaticSMTP-${TRAVIS_TAG}.jar"
+  file:
+      - "build/libs/LunaticSMTP-${TRAVIS_TAG}.jar"
+      - "build/distributions/lunaticsmtp_${TRAVIS_TAG:1}-1_all.deb"
   skip_cleanup: true
   on:
     tags: true
 
-script: gradle release
+script: gradle releaseDeb

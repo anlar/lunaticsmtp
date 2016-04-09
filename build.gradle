@@ -20,6 +20,7 @@ plugins {
     id 'java'
     id 'idea'
     id 'com.github.ben-manes.versions' version '0.12.0'
+    id 'nebula.ospackage' version '3.4.0'
 }
 
 repositories {
@@ -95,4 +96,47 @@ task('release', type: Jar, dependsOn: 'check', description: 'Assembles a jar arc
         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     }
     with jar
+}
+
+task releaseDeb(type: Deb, dependsOn: 'release', description: 'Assembles deb-package.') {
+    packageName = 'lunaticsmtp'
+    version = baseVersion
+    release = 1
+
+    license = 'GPLv3'
+    maintainer = author
+    url = 'https://github.com/anlar/LunaticSMTP'
+    summary = 'Dummy SMTP server with JavaFX gui for testing email sending applications'
+
+    customField([
+            'Vcs-Browser': 'https://github.com/anlar/LunaticSMTP',
+    ])
+
+    from("$buildDir/libs/$applicationName-v${baseVersion}.jar") {
+        into '/usr/share/LunaticSMTP'
+        rename("$applicationName-v${baseVersion}.jar", "${applicationName}.jar")
+        fileMode 0644
+    }
+
+    from("package/linux/LunaticSMTP.sh") {
+        into '/usr/bin'
+        rename("LunaticSMTP.sh", "LunaticSMTP")
+        fileMode 0755
+    }
+
+    from("package/linux/LunaticSMTP.desktop") {
+        into '/usr/share/applications'
+        fileMode 0644
+    }
+
+    from("package/linux/LunaticSMTP.png") {
+        into '/usr/share/pixmaps'
+        fileMode 0644
+    }
+
+    from("LICENSE") {
+        into "/usr/share/doc/$packageName"
+        rename("LICENSE", "copyright")
+        fileMode 0644
+    }
 }

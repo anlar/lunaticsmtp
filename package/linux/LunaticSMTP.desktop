@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=LunaticSMTP
+Comment=Dummy SMTP server
+Exec=LunaticSMTP
+Icon=LunaticSMTP
+Terminal=false
+Type=Application
+Categories=Java;Utility;Development;Email;
+Keywords=Email;SMTP;
