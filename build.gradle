@@ -134,9 +134,8 @@ task releaseDeb(type: Deb, dependsOn: 'release', description: 'Assembles deb-pac
         fileMode 0644
     }
 
-    from("LICENSE") {
+    from("package/linux/copyright") {
         into "/usr/share/doc/$packageName"
-        rename("LICENSE", "copyright")
         fileMode 0644
     }
 }
