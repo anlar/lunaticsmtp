@@ -118,9 +118,8 @@ task releaseDeb(type: Deb, dependsOn: 'release', description: 'Assembles deb-pac
         fileMode 0644
     }
 
-    from("package/linux/LunaticSMTP.sh") {
+    from("package/linux/LunaticSMTP") {
         into '/usr/bin'
-        rename("LunaticSMTP.sh", "LunaticSMTP")
         fileMode 0755
     }
 
