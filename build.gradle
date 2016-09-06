@@ -106,7 +106,8 @@ task releaseDeb(type: Deb, dependsOn: 'release', description: 'Assembles deb-pac
     license = 'GPLv3'
     maintainer = author
     url = 'https://github.com/anlar/LunaticSMTP'
-    summary = 'Dummy SMTP server with JavaFX gui for testing email sending applications'
+    summary = 'dummy SMTP server with GUI'
+    packageDescription = 'Simple JavaFX SMTP server for testing email sending applications.'
 
     customField([
             'Vcs-Browser': 'https://github.com/anlar/LunaticSMTP',
