@@ -7,6 +7,7 @@ addons:
   apt:
     packages:
       - oracle-java8-installer
+      - lintian
 
 deploy:
   provider: releases
@@ -18,4 +19,6 @@ deploy:
   on:
     tags: true
 
-script: gradle releaseDeb
+script:
+  - gradle releaseDeb
+  - find build/distributions/ -name *.deb -exec lintian {} \;
