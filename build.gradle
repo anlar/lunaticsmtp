@@ -102,6 +102,7 @@ task releaseDeb(type: Deb, dependsOn: 'release', description: 'Assembles deb-pac
     packageName = 'lunaticsmtp'
     version = baseVersion
     release = 1
+    user = 'root'
 
     license = 'GPLv3'
     maintainer = author

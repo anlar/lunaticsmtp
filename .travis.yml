@@ -20,5 +20,5 @@ deploy:
     tags: true
 
 script:
-  - sudo $(which gradle) releaseDeb
+  - gradle releaseDeb
   - find build/distributions/ -name *.deb -exec lintian {} \;
