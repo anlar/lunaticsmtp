@@ -38,6 +38,9 @@ public class Config {
     @Parameter(names = {"-h", "--help"}, help = true, descriptionKey = "cli.help")
     private boolean help;
 
+    @Parameter(names = {"-v", "--version"}, descriptionKey = "cli.version")
+    private boolean version;
+
     @Parameter(names = {"-s", "--start"}, descriptionKey = "cli.start")
     private boolean start = false;
 
@@ -68,6 +71,14 @@ public class Config {
 
     public void setHelp(boolean help) {
         this.help = help;
+    }
+
+    public boolean isVersion() {
+        return version;
+    }
+
+    public void setVersion(boolean version) {
+        this.version = version;
     }
 
     public boolean isStart() {

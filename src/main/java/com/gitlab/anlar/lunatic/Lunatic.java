@@ -36,6 +36,8 @@ public class Lunatic {
 
         if (config.isHelp()) {
             printHelp(commander);
+        } else if (config.isVersion()) {
+            printVersion(commander);
         } else {
             if (config.isNoGui()) {
                 if (config.isStart()) {
@@ -59,6 +61,17 @@ public class Lunatic {
         StringBuilder sb = new StringBuilder();
         commander.usage(sb);
         sb.insert(0, String.format("LunaticSMTP, version %s, revision %s\n", Version.getVersion(), Version.getGitShortRevision()));
+        JCommander.getConsole().println(sb.toString());
+    }
+
+    private static void printVersion(JCommander commander) {
+        StringBuilder sb  = new StringBuilder();
+        sb.append(String.format("LunaticSMTP %s (%s)\n", Version.getVersion(), Version.getGitShortRevision()));
+        sb.append("Copyright (C) 2016 Anton Larionov\n" +
+                "License GPLv3+: GNU GPL version 3 or later.\n" +
+                "This is free software: you are free to change and redistribute it.\n" +
+                "There is NO WARRANTY, to the extent permitted by law.");
+
         JCommander.getConsole().println(sb.toString());
     }
 
