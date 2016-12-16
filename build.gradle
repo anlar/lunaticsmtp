@@ -20,7 +20,7 @@ plugins {
     id 'java'
     id 'idea'
     id 'com.github.ben-manes.versions' version '0.12.0'
-    id 'nebula.ospackage' version '3.4.0'
+    id 'nebula.ospackage' version '4.3.0'
 }
 
 repositories {
