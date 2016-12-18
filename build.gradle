@@ -105,7 +105,7 @@ task releaseDeb(type: Deb, dependsOn: 'release', description: 'Assembles deb-pac
     user = 'root'
 
     license = 'GPLv3'
-    maintainer = author
+    maintainer = author + ' <contact-via-project-issue-tracker@github.com>'
     url = 'https://github.com/anlar/LunaticSMTP'
     summary = 'dummy SMTP server with GUI'
     packageDescription = 'Simple JavaFX SMTP server for testing email sending applications.'
