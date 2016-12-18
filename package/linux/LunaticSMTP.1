@@ -1,0 +1,82 @@
+.TH LUNATICSMTP "1"
+.SH NAME
+LunaticSMTP - simple JavaFX SMTP server for testing email sending applications
+.SH SYNOPSIS
+.B LunaticSMTP
+\/\fR[\fI\,options\/\fR]
+.SH DESCRIPTION
+This manual page documents briefly the LunaticSMTP usage.
+.PP
+Also remember that it's updated only for releases and in the meantime it's better to refer to \fB\-\-help\fR option.
+.SH OPTIONS
+.HP
+\fB\-c\fR, \fB\-\-cleanup\fR
+.IP
+Remove saved on disk emails after shutdown
+.sp
+Default: false
+.HP
+\fB\-d\fR, \fB\-\-directory\fR
+.IP
+Directory to save incoming messages
+.sp
+Default: incoming
+.HP
+\fB\-h\fR, \fB\-\-help\fR
+.IP
+Show short summary of options
+.sp
+Default: false
+.HP
+\fB\-j\fR, \fB\-\-jump\-to\-last\fR
+.IP
+Automatically select last received email in GUI
+.sp
+Default: false
+.HP
+\fB\-n\fR, \fB\-\-no\-gui\fR
+.IP
+Starts application without GUI (should be used with \fB\-s\fR argument)
+.sp
+Default: false
+.HP
+\fB\-p\fR, \fB\-\-port\fR
+.IP
+Specify port for SMTP server
+.sp
+Default: 2525
+.HP
+\fB\-s\fR, \fB\-\-start\fR
+.IP
+Starts SMTP server at application launch
+.sp
+Default: false
+.HP
+\fB\-t\fR, \fB\-\-tray\-mode\fR
+.IP
+Set tray mode (none: disable tray; enable: enable tray; minimize: enable tray and start application minimized)
+.sp
+Default: none
+.sp
+Possible Values: [none, enable, minimize]
+.HP
+\fB\-v\fR, \fB\-\-version\fR
+.IP
+Print version information and exit
+Default: false
+.HP
+\fB\-w\fR, \fB\-\-write\fR
+.IP
+Save incoming emails to disk
+.sp
+Default: false
+.SH AUTHOR
+Written by Anton Larionov.
+.SH "REPORTING BUGS"
+Report bugs to: <https://github.com/anlar/LunaticSMTP/issues>
+.SH COPYRIGHT
+Copyright \(co 2016 Anton Larionov License GPLv3+: GNU GPL version 3 or later.
+.br
+This is free software: you are free to change and redistribute it.
+.br
+There is NO WARRANTY, to the extent permitted by law.

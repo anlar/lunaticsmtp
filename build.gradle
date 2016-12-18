@@ -139,4 +139,9 @@ task releaseDeb(type: Deb, dependsOn: 'release', description: 'Assembles deb-pac
         into "/usr/share/doc/$packageName"
         fileMode 0644
     }
+
+    from("package/linux/LunaticSMTP.1") {
+        into "/usr/share/man/man1"
+        fileMode 0644
+    }
 }
