@@ -21,4 +21,4 @@ deploy:
 
 script:
   - gradle releaseDeb
-  - find build/distributions/ -name *.deb -exec lintian {} \;
+  - lintian build/distributions/*.deb -v --pedantic --suppress-tags debian-changelog-file-missing,manpage-not-compressed
