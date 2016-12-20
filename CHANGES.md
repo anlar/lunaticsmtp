@@ -1,3 +1,8 @@
+## v0.2.1 (2016-12-20) Disbelief Aspect B
+
+* Improvements for deb-package.
+* Added new option "--version".
+
 ## v0.2.0 (2016-04-09) Disbelief Aspect
 
 * Created application icon.
