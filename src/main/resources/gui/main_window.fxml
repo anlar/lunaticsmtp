@@ -76,28 +76,16 @@
     <center>
         <TabPane tabClosingPolicy="UNAVAILABLE" side="LEFT">
             <Tab text="%gui.tab.emails">
-                <SplitPane orientation="VERTICAL" dividerPositions="0.3">
+                <SplitPane dividerPositions="0.1">
 
                     <TableView fx:id="messagesTable">
                         <columns>
-                            <PercentageTableColumn text="%gui.table.subject" percentageWidth="45">
+                            <PercentageTableColumn percentageWidth="100">
+                                <cellFactory>
+                                    <EmailTableFactory/>
+                                </cellFactory>
                                 <cellValueFactory>
-                                    <PropertyValueFactory property="subject"/>
-                                </cellValueFactory>
-                            </PercentageTableColumn>
-                            <PercentageTableColumn text="%gui.table.from" percentageWidth="20">
-                                <cellValueFactory>
-                                    <PropertyValueFactory property="from"/>
-                                </cellValueFactory>
-                            </PercentageTableColumn>
-                            <PercentageTableColumn text="%gui.table.to" percentageWidth="20">
-                                <cellValueFactory>
-                                    <PropertyValueFactory property="to"/>
-                                </cellValueFactory>
-                            </PercentageTableColumn>
-                            <PercentageTableColumn text="%gui.table.date" percentageWidth="15">
-                                <cellValueFactory>
-                                    <DatePropertyValueFactory property="date" format="yyyy-MM-dd HH:mm:ss"/>
+                                    <EmailTableValueFactory/>
                                 </cellValueFactory>
                             </PercentageTableColumn>
                         </columns>
@@ -106,7 +94,7 @@
                         </items>
                     </TableView>
 
-                    <TabPane tabClosingPolicy="UNAVAILABLE" side="LEFT">
+                    <TabPane tabClosingPolicy="UNAVAILABLE">
                         <Tab text="%gui.tab.html">
                             <WebView fx:id="emailText"/>
                         </Tab>

@@ -1,6 +1,6 @@
 /*
  * LunaticSMTP
- * Copyright (C) 2016  Anton Larionov
+ * Copyright (C) 2017  Anton Larionov
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,31 +19,17 @@
 package com.gitlab.anlar.lunatic.gui.control;
 
 import com.gitlab.anlar.lunatic.dto.Email;
-import javafx.beans.NamedArg;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
-import java.text.SimpleDateFormat;
-
-public class DatePropertyValueFactory extends PropertyValueFactory {
-
-    private final String format;
-
-    public DatePropertyValueFactory(@NamedArg("property") String property, @NamedArg("format") String format) {
-        super(property);
-        this.format = format;
-    }
+public class EmailTableValueFactory implements Callback<TableColumn.CellDataFeatures<Email, Email>, ObservableValue<Email>> {
 
     @Override
-    public ObservableValue call(TableColumn.CellDataFeatures param) {
-        if (getProperty() != null && !getProperty().isEmpty() && param.getValue() != null) {
-            Email email = (Email) param.getValue();
-            if (email.getDate() != null) {
-                String value = new SimpleDateFormat(format).format(email.getDate());
-                return new ReadOnlyObjectWrapper<>(value);
-            }
+    public ObservableValue<Email> call(TableColumn.CellDataFeatures<Email, Email> param) {
+        if (param.getValue() != null) {
+            return new ReadOnlyObjectWrapper<>(param.getValue());
         }
 
         return null;
