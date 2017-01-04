@@ -18,11 +18,12 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<?import com.gitlab.anlar.lunatic.gui.control.*?>
+<?import com.gitlab.anlar.lunatic.gui.control.EmailTableFactory?>
+<?import com.gitlab.anlar.lunatic.gui.control.EmailTableValueFactory?>
+<?import com.gitlab.anlar.lunatic.gui.control.PercentageTableColumn?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.web.WebView?>
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.gitlab.anlar.lunatic.gui.MainWindowController">
@@ -70,6 +71,9 @@
                 </GridPane>
             </center>
 
+            <bottom>
+                <Separator/>
+            </bottom>
         </BorderPane>
     </top>
 
@@ -94,14 +98,41 @@
                         </items>
                     </TableView>
 
-                    <TabPane tabClosingPolicy="UNAVAILABLE">
-                        <Tab text="%gui.tab.html">
-                            <WebView fx:id="emailText"/>
-                        </Tab>
-                        <Tab text="%gui.tab.raw">
-                            <TextArea fx:id="rawText" editable="false"/>
-                        </Tab>
-                    </TabPane>
+                    <BorderPane>
+                        <top>
+                            <GridPane alignment="CENTER_LEFT" hgap="5" vgap="5">
+                                <padding>
+                                    <Insets top="10" right="10" bottom="10" left="10"/>
+                                </padding>
+
+                                <columnConstraints>
+                                    <ColumnConstraints halignment="RIGHT"/>
+                                    <ColumnConstraints hgrow="ALWAYS"/>
+                                </columnConstraints>
+
+                                <Label id="emailFromLabel" text="%gui.email.from" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                <TextField fx:id="emailFrom" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                                <Label id="emailSubjectLabel" text="%gui.email.subject" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                                <TextField fx:id="emailSubject" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                                <TextField fx:id="emailDate" alignment="CENTER_RIGHT" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+
+                                <Label id="emailToLabel" text="%gui.email.to" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                                <TextField fx:id="emailTo" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                            </GridPane>
+                        </top>
+
+                        <center>
+                            <TabPane tabClosingPolicy="UNAVAILABLE">
+                                <Tab text="%gui.tab.html">
+                                    <WebView fx:id="emailText"/>
+                                </Tab>
+                                <Tab text="%gui.tab.raw">
+                                    <TextArea fx:id="rawText" editable="false"/>
+                                </Tab>
+                            </TabPane>
+                        </center>
+                    </BorderPane>
 
                 </SplitPane>
             </Tab>

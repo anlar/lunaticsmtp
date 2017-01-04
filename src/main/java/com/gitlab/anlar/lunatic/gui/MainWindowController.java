@@ -34,13 +34,13 @@ import javafx.scene.control.*;
 import javafx.scene.web.WebView;
 import javafx.stage.DirectoryChooser;
 import org.apache.commons.lang3.SystemUtils;
-import org.apache.log4j.Level;
 import org.apache.log4j.PatternLayout;
 import org.apache.log4j.WriterAppender;
 import org.apache.log4j.spi.LoggingEvent;
 
 import java.io.File;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 public class MainWindowController implements Initializable {
@@ -58,6 +58,15 @@ public class MainWindowController implements Initializable {
     private Button dirButton;
     @FXML
     private CheckBox saveDirCheck;
+
+    @FXML
+    public TextField emailFrom;
+    @FXML
+    public TextField emailTo;
+    @FXML
+    public TextField emailSubject;
+    @FXML
+    public TextField emailDate;
 
     @FXML
     private WebView emailText;
@@ -139,6 +148,11 @@ public class MainWindowController implements Initializable {
 
         messagesTable.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
             if (messagesTable.getSelectionModel().getSelectedItem() != null) {
+                emailFrom.setText(newValue.getFrom());
+                emailTo.setText(newValue.getTo());
+                emailSubject.setText(newValue.getSubject());
+                emailDate.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(newValue.getDate()));
+
                 emailText.getEngine().loadContent(newValue.getBody(), newValue.getBodyType());
                 rawText.setText(newValue.getContent());
             } else {

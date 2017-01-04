@@ -1,7 +1,16 @@
-#messagesField {
+#messagesField, #emailSubject {
     -fx-font-weight: bold;
 }
 
-/*.column-header-background {
+.column-header-background {
     visibility: hidden; -fx-padding: -1em;
-}*/
+}
+
+#emailFromLabel, #emailToLabel, #emailSubjectLabel {
+    -fx-text-fill: grey;
+}
+
+#emailFrom, #emailTo, #emailSubject, #emailDate {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0px;
+}
