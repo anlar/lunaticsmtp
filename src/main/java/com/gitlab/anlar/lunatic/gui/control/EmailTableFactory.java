@@ -26,7 +26,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.util.Callback;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 
 import java.text.SimpleDateFormat;
@@ -46,12 +48,15 @@ public class EmailTableFactory implements Callback<TableColumn<Email, Email>, Ta
                     boolean isToday = DateUtils.isSameDay(item.getDate(), new Date());
 
                     Label labelSubject = createSubject(item);
+                    Label labelBody = createBody(item);
                     Label labelDate = createDate(item, isToday);
 
+                    VBox emailBox = new VBox(labelSubject, labelBody);
+
                     GridPane box = new GridPane();
-                    box.add(labelSubject, 0, 0);
+                    box.add(emailBox, 0, 0);
                     box.add(labelDate, 1, 0);
-                    GridPane.setHgrow(labelSubject, Priority.ALWAYS);
+                    GridPane.setHgrow(emailBox, Priority.ALWAYS);
 
                     box.getColumnConstraints().add(new ColumnConstraints());
                     box.getColumnConstraints().add(new ColumnConstraints());
@@ -66,12 +71,24 @@ public class EmailTableFactory implements Callback<TableColumn<Email, Email>, Ta
             }
 
             private Label createSubject(Email email) {
-                Label label = new Label();
+                Label label = new Label(email.getSubject());
 
                 label.setStyle("-fx-font-weight: bold");
-                label.setText(email.getSubject());
 
                 return label;
+            }
+
+            private Label createBody(Email email) {
+                return new Label(getBodyPreview(email));
+            }
+
+            private String getBodyPreview(Email email) {
+                if (StringUtils.isNotBlank(email.getBody())) {
+                    String[] lines = email.getBody().trim().split("\\r?\\n", -1);
+                    return lines[0];
+                } else {
+                    return null;
+                }
             }
 
             private Label createDate(Email item, boolean isToday) {
