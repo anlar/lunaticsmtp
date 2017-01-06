@@ -1,10 +1,25 @@
+
+/* control panel */
+
 #messagesField, #emailSubject {
     -fx-font-weight: bold;
 }
 
+/* email table */
+
 .column-header-background {
     visibility: hidden; -fx-padding: -1em;
 }
+
+.table-row-cell:empty {
+    -fx-background-color: white;
+}
+
+.table-row-cell:empty .table-cell {
+    -fx-border-width: 0px;
+}
+
+/* email viewer */
 
 #emailFromLabel, #emailToLabel, #emailSubjectLabel {
     -fx-text-fill: grey;
