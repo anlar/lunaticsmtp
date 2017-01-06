@@ -14,3 +14,11 @@
     -fx-background-color: transparent;
     -fx-background-insets: 0px;
 }
+
+#emailScreenTabPane .tab-header-area {
+    visibility: hidden;
+}
+
+#emailTabPane .tab-header-area {
+    visibility: visible;
+}

@@ -60,6 +60,9 @@ public class MainWindowController implements Initializable {
     private CheckBox saveDirCheck;
 
     @FXML
+    public TabPane emailScreenTabPane;
+
+    @FXML
     public TextField emailFrom;
     @FXML
     public TextField emailTo;
@@ -148,6 +151,8 @@ public class MainWindowController implements Initializable {
 
         messagesTable.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
             if (messagesTable.getSelectionModel().getSelectedItem() != null) {
+                emailScreenTabPane.getSelectionModel().select(1);
+
                 emailFrom.setText(newValue.getFrom());
                 emailTo.setText(newValue.getTo());
                 emailSubject.setText(newValue.getSubject());
@@ -156,9 +161,10 @@ public class MainWindowController implements Initializable {
                 emailText.getEngine().loadContent(newValue.getBody(), newValue.getBodyType());
                 rawText.setText(newValue.getContent());
             } else {
+                emailScreenTabPane.getSelectionModel().select(0);
+
                 emailText.getEngine().loadContent("");
                 rawText.setText(null);
-
             }
         });
 
