@@ -21,7 +21,6 @@
 <?import com.gitlab.anlar.lunatic.gui.control.EmailTableFactory?>
 <?import com.gitlab.anlar.lunatic.gui.control.EmailTableValueFactory?>
 <?import com.gitlab.anlar.lunatic.gui.control.PercentageTableColumn?>
-<?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -82,21 +81,38 @@
             <Tab text="%gui.tab.emails">
                 <SplitPane dividerPositions="0.1">
 
-                    <TableView fx:id="messagesTable">
-                        <columns>
-                            <PercentageTableColumn percentageWidth="100">
-                                <cellFactory>
-                                    <EmailTableFactory/>
-                                </cellFactory>
-                                <cellValueFactory>
-                                    <EmailTableValueFactory/>
-                                </cellValueFactory>
-                            </PercentageTableColumn>
-                        </columns>
-                        <items>
-                            <FXCollections fx:id="messages" fx:factory="observableArrayList"/>
-                        </items>
-                    </TableView>
+                    <BorderPane>
+                        <top>
+                            <GridPane hgap="10" vgap="10">
+                                <padding>
+                                    <Insets top="5" right="5" bottom="5" left="5"/>
+                                </padding>
+
+                                <columnConstraints>
+                                    <ColumnConstraints/>
+                                    <ColumnConstraints hgrow="ALWAYS"/>
+                                </columnConstraints>
+
+                                <Label text="Filter" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                                <TextField fx:id="tableFilter" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                            </GridPane>
+                        </top>
+
+                        <center>
+                            <TableView fx:id="messagesTable">
+                                <columns>
+                                    <PercentageTableColumn percentageWidth="100">
+                                        <cellFactory>
+                                            <EmailTableFactory/>
+                                        </cellFactory>
+                                        <cellValueFactory>
+                                            <EmailTableValueFactory/>
+                                        </cellValueFactory>
+                                    </PercentageTableColumn>
+                                </columns>
+                            </TableView>
+                        </center>
+                    </BorderPane>
 
                     <TabPane fx:id="emailScreenTabPane" tabMaxHeight="-Infinity">
                         <Tab/>

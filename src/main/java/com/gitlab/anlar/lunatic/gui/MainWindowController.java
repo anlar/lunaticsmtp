@@ -26,13 +26,16 @@ import com.gitlab.anlar.lunatic.server.SaverConfig;
 import com.gitlab.anlar.lunatic.server.StartResult;
 import com.gitlab.anlar.lunatic.util.Messages;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.web.WebView;
 import javafx.stage.DirectoryChooser;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.log4j.PatternLayout;
 import org.apache.log4j.WriterAppender;
@@ -76,6 +79,8 @@ public class MainWindowController implements Initializable {
     @FXML
     private TextArea rawText;
     @FXML
+    private TextField tableFilter;
+    @FXML
     private TableView<Email> messagesTable;
 
     @FXML
@@ -83,6 +88,7 @@ public class MainWindowController implements Initializable {
 
     @FXML
     private ObservableList<Email> messages;
+    private FilteredList<Email> filteredMessages;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -91,7 +97,8 @@ public class MainWindowController implements Initializable {
         createLogPanelAppender();
 
         initListeners(config);
-        initElements(config);
+        initTable();
+        initControlPanel(config);
 
         if (config.isStart()) {
             // launch server in separate thread so it won't block main window appearance with warning dialog
@@ -149,6 +156,14 @@ public class MainWindowController implements Initializable {
             }
         });
 
+        tableFilter.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (StringUtils.isNotBlank(newValue)) {
+                filteredMessages.setPredicate(email -> StringUtils.containsIgnoreCase(email.getSubject(), newValue));
+            } else {
+                filteredMessages.setPredicate(null);
+            }
+        });
+
         messagesTable.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
             if (messagesTable.getSelectionModel().getSelectedItem() != null) {
                 emailScreenTabPane.getSelectionModel().select(1);
@@ -189,7 +204,13 @@ public class MainWindowController implements Initializable {
         }));
     }
 
-    private void initElements(Config config) {
+    private void initTable() {
+        messages = FXCollections.observableArrayList();
+        filteredMessages = new FilteredList<>(messages);
+        messagesTable.setItems(filteredMessages);
+    }
+
+    private void initControlPanel(Config config) {
         portField.setTextFormatter(new TextFormatter<>(change -> {
             change.setText(change.getText().replaceAll("[^0-9.,]", ""));
             return change;
