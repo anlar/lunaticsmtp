@@ -26,6 +26,7 @@ import com.gitlab.anlar.lunatic.server.SaverConfig;
 import com.gitlab.anlar.lunatic.server.StartResult;
 import com.gitlab.anlar.lunatic.util.Messages;
 import javafx.application.Platform;
+import javafx.beans.property.ObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -40,13 +41,20 @@ import org.apache.commons.lang3.SystemUtils;
 import org.apache.log4j.PatternLayout;
 import org.apache.log4j.WriterAppender;
 import org.apache.log4j.spi.LoggingEvent;
+import org.controlsfx.control.textfield.CustomTextField;
+import org.controlsfx.control.textfield.TextFields;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 public class MainWindowController implements Initializable {
+    private static final Logger log = LoggerFactory.getLogger(MainWindowController.class);
 
     @FXML
     private TextField portField;
@@ -79,7 +87,7 @@ public class MainWindowController implements Initializable {
     @FXML
     private TextArea rawText;
     @FXML
-    private TextField tableFilter;
+    private CustomTextField tableFilter;
     @FXML
     private TableView<Email> messagesTable;
 
@@ -98,6 +106,7 @@ public class MainWindowController implements Initializable {
 
         initListeners(config);
         initTable();
+        initTableFilter();
         initControlPanel(config);
 
         if (config.isStart()) {
@@ -208,6 +217,18 @@ public class MainWindowController implements Initializable {
         messages = FXCollections.observableArrayList();
         filteredMessages = new FilteredList<>(messages);
         messagesTable.setItems(filteredMessages);
+    }
+
+    private void initTableFilter() {
+        // we can't create clearableTextField via FXML so we need to init it manually
+        // see: https://bitbucket.org/controlsfx/controlsfx/issues/330
+        try {
+            Method m = TextFields.class.getDeclaredMethod("setupClearButtonField", TextField.class, ObjectProperty.class);
+            m.setAccessible(true);
+            m.invoke(null, tableFilter, tableFilter.rightProperty());
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            log.error("Failed to init table filter field", e);
+        }
     }
 
     private void initControlPanel(Config config) {

@@ -25,6 +25,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.web.WebView?>
+<?import org.controlsfx.control.textfield.CustomTextField?>
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.gitlab.anlar.lunatic.gui.MainWindowController">
 
     <top>
@@ -82,20 +83,18 @@
                 <SplitPane dividerPositions="0.1">
 
                     <BorderPane>
+                        <padding>
+                            <Insets right="5" bottom="5" left="5" top="5"/>
+                        </padding>
+
                         <top>
-                            <GridPane hgap="10" vgap="10">
-                                <padding>
-                                    <Insets top="5" right="5" bottom="5" left="5"/>
-                                </padding>
-
-                                <columnConstraints>
-                                    <ColumnConstraints/>
-                                    <ColumnConstraints hgrow="ALWAYS"/>
-                                </columnConstraints>
-
-                                <Label text="Filter" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                                <TextField fx:id="tableFilter" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-                            </GridPane>
+                            <CustomTextField fx:id="tableFilter" GridPane.rowIndex="0" GridPane.columnIndex="1" promptText="%gui.filter.prompt">
+                                <BorderPane.margin>
+                                    <Insets>
+                                        <bottom>5</bottom>
+                                    </Insets>
+                                </BorderPane.margin>
+                            </CustomTextField>
                         </top>
 
                         <center>
