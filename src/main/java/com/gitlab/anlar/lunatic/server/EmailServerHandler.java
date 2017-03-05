@@ -19,6 +19,8 @@
 package com.gitlab.anlar.lunatic.server;
 
 import com.gitlab.anlar.lunatic.dto.Email;
+import com.gitlab.anlar.lunatic.dto.EmailPart;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.subethamail.smtp.helper.SimpleMessageListener;
@@ -41,6 +43,7 @@ import java.util.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class EmailServerHandler extends Observable implements SimpleMessageListener {
     private static final Logger log = LoggerFactory.getLogger(EmailServerHandler.class);
@@ -86,37 +89,43 @@ public class EmailServerHandler extends Observable implements SimpleMessageListe
         String subject = message.getSubject();
 
         Object content = message.getContent();
-        String body = null;
-        String bodyType = null;
+        List<EmailPart> parts = new LinkedList<>();
 
-        // single-part email
         if (content instanceof String) {
-            if (isPlainText(message.getContentType())) {
-                body = (String) content;
-                bodyType = TYPE_TEXT;
-            } else if (isHtml(message.getContentType())) {
-                body = (String) content;
-                bodyType = TYPE_HTML;
-            }
-        // multi-part email
+            // single-part email
+            parts.add(createEmailPart(content, message.getContentType()));
+
         } else if (content instanceof Multipart) {
+            // multi-part email
             Multipart mp = (Multipart) content;
+
             for (int i = 0; i < mp.getCount(); i++) {
                 BodyPart bp = mp.getBodyPart(i);
-
-                if (isPlainText(bp.getContentType())) {
-                    body = (String) bp.getContent();
-                    bodyType = TYPE_TEXT;
-                    break;
-                } else if (isHtml(bp.getContentType())) {
-                    body = (String) bp.getContent();
-                    bodyType = TYPE_HTML;
-                    break;
-                }
+                parts.add(createEmailPart(bp.getContent(), bp.getContentType()));
             }
         }
 
-        return new Email(rawContent, new Date(), subject, from, recipient, body, bodyType);
+        return new Email(rawContent, new Date(), subject, from, recipient, parts);
+    }
+
+    private EmailPart createEmailPart(Object content, String contentType) {
+        EmailPart.Type type = getPartType(contentType);
+        return new EmailPart(type != EmailPart.Type.file ? (String) content : null,
+                formatContentType(contentType), type);
+    }
+
+    private String formatContentType(String value) {
+        return Arrays.stream(value.split("\n")).map(StringUtils::trim).collect(Collectors.joining(" "));
+    }
+
+    private EmailPart.Type getPartType(String contentType) {
+        if (isPlainText(contentType)) {
+            return EmailPart.Type.text;
+        } else if (isHtml(contentType)) {
+            return EmailPart.Type.html;
+        } else {
+            return EmailPart.Type.file;
+        }
     }
 
     private boolean isPlainText(String value) {

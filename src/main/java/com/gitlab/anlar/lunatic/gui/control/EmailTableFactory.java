@@ -19,6 +19,7 @@
 package com.gitlab.anlar.lunatic.gui.control;
 
 import com.gitlab.anlar.lunatic.dto.Email;
+import com.gitlab.anlar.lunatic.dto.EmailPart;
 import javafx.geometry.HPos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
@@ -83,12 +84,26 @@ public class EmailTableFactory implements Callback<TableColumn<Email, Email>, Ta
             }
 
             private String getBodyPreview(Email email) {
-                if (StringUtils.isNotBlank(email.getBody())) {
-                    String[] lines = email.getBody().trim().split("\\r?\\n", -1);
+                EmailPart mainPart = getMainPart(email);
+
+                if (mainPart != null && StringUtils.isNotBlank(mainPart.getContent())) {
+                    String[] lines = mainPart.getContent().trim().split("\\r?\\n", -1);
                     return lines[0];
                 } else {
                     return null;
                 }
+            }
+
+            private EmailPart getMainPart(Email email) {
+                if (email.getParts() != null) {
+                    for (EmailPart part : email.getParts()) {
+                        if (part.getType() == EmailPart.Type.text || part.getType() == EmailPart.Type.html) {
+                            return part;
+                        }
+                    }
+                }
+
+                return null;
             }
 
             private Label createDate(Email item, boolean isToday) {

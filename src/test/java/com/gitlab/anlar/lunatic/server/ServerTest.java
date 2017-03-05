@@ -141,7 +141,7 @@ public class ServerTest {
         TestCase.assertEquals(from, email.getFrom());
         TestCase.assertEquals(to, email.getTo());
         TestCase.assertEquals(subject, email.getSubject());
-        TestCase.assertEquals(StringUtils.trim(body), StringUtils.trim(email.getBody()));
+        TestCase.assertEquals(StringUtils.trim(body), StringUtils.trim(email.getParts().get(0).getContent()));
     }
 
     // Server control

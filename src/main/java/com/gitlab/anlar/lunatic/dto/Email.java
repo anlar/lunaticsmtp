@@ -19,6 +19,7 @@
 package com.gitlab.anlar.lunatic.dto;
 
 import java.util.Date;
+import java.util.List;
 
 public class Email {
     private String content;
@@ -28,8 +29,7 @@ public class Email {
     private String from;
     private String to;
 
-    private String body;
-    private String bodyType;
+    private List<EmailPart> parts;
 
     private String filePath;
 
@@ -37,14 +37,13 @@ public class Email {
         // do nothing
     }
 
-    public Email(String content, Date date, String subject, String from, String to, String body, String bodyType) {
+    public Email(String content, Date date, String subject, String from, String to, List<EmailPart> parts) {
         this.content = content;
         this.date = date;
         this.subject = subject;
         this.from = from;
         this.to = to;
-        this.body = body;
-        this.bodyType = bodyType;
+        this.parts = parts;
     }
 
     public String getContent() {
@@ -87,16 +86,12 @@ public class Email {
         this.to = to;
     }
 
-    public String getBody() {
-        return body;
+    public List<EmailPart> getParts() {
+        return parts;
     }
 
-    public void setBody(String body) {
-        this.body = body;
-    }
-
-    public String getBodyType() {
-        return bodyType;
+    public void setParts(List<EmailPart> parts) {
+        this.parts = parts;
     }
 
     public String getFilePath() {

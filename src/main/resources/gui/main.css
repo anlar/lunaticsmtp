@@ -21,7 +21,7 @@
 
 /* email viewer */
 
-#emailFromLabel, #emailToLabel, #emailSubjectLabel {
+#emailFromLabel, #emailToLabel, #emailSubjectLabel, #emailPartLabel {
     -fx-text-fill: grey;
 }
 

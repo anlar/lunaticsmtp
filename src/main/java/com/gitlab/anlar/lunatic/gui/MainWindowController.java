@@ -20,6 +20,7 @@ package com.gitlab.anlar.lunatic.gui;
 
 import com.gitlab.anlar.lunatic.Config;
 import com.gitlab.anlar.lunatic.dto.Email;
+import com.gitlab.anlar.lunatic.dto.EmailPart;
 import com.gitlab.anlar.lunatic.server.EmailServer;
 import com.gitlab.anlar.lunatic.server.Event;
 import com.gitlab.anlar.lunatic.server.SaverConfig;
@@ -81,6 +82,8 @@ public class MainWindowController implements Initializable {
     public TextField emailSubject;
     @FXML
     public TextField emailDate;
+    @FXML
+    public ComboBox<EmailPart> emailPart;
 
     @FXML
     private WebView emailText;
@@ -97,6 +100,9 @@ public class MainWindowController implements Initializable {
     @FXML
     private ObservableList<Email> messages;
     private FilteredList<Email> filteredMessages;
+
+    @FXML
+    private ObservableList<EmailPart> parts;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -182,11 +188,24 @@ public class MainWindowController implements Initializable {
                 emailSubject.setText(newValue.getSubject());
                 emailDate.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(newValue.getDate()));
 
-                emailText.getEngine().loadContent(newValue.getBody(), newValue.getBodyType());
-                rawText.setText(newValue.getContent());
+                parts.clear();
+                parts.addAll(newValue.getParts());
+                emailPart.getSelectionModel().selectFirst();
             } else {
                 emailScreenTabPane.getSelectionModel().select(0);
+            }
+        });
 
+        emailPart.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (messagesTable.getSelectionModel().getSelectedItem() != null) {
+                if (newValue != null && (newValue.getType() == EmailPart.Type.text || newValue.getType() == EmailPart.Type.html)) {
+                    emailText.getEngine().loadContent(newValue.getContent(), newValue.getType() == EmailPart.Type.text ? "text/plain" : "text/html");
+                    rawText.setText(newValue.getContent());
+                } else {
+                    emailText.getEngine().loadContent("");
+                    rawText.setText(null);
+                }
+            } else {
                 emailText.getEngine().loadContent("");
                 rawText.setText(null);
             }
