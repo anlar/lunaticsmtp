@@ -188,11 +188,15 @@ public class MainWindowController implements Initializable {
                 emailSubject.setText(newValue.getSubject());
                 emailDate.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(newValue.getDate()));
 
+                rawText.setText(newValue.getContent());
+
                 parts.clear();
                 parts.addAll(newValue.getParts());
                 emailPart.getSelectionModel().selectFirst();
             } else {
                 emailScreenTabPane.getSelectionModel().select(0);
+
+                rawText.setText(null);
             }
         });
 
@@ -200,14 +204,11 @@ public class MainWindowController implements Initializable {
             if (messagesTable.getSelectionModel().getSelectedItem() != null) {
                 if (newValue != null && (newValue.getType() == EmailPart.Type.text || newValue.getType() == EmailPart.Type.html)) {
                     emailText.getEngine().loadContent(newValue.getContent(), newValue.getType() == EmailPart.Type.text ? "text/plain" : "text/html");
-                    rawText.setText(newValue.getContent());
                 } else {
                     emailText.getEngine().loadContent("");
-                    rawText.setText(null);
                 }
             } else {
                 emailText.getEngine().loadContent("");
-                rawText.setText(null);
             }
         });
 
