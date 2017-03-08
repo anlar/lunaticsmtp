@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/anlar/LunaticSMTP.svg?branch=master)](https://travis-ci.org/anlar/LunaticSMTP)
 [![Release](https://img.shields.io/github/release/anlar/LunaticSMTP.svg)](https://github.com/anlar/LunaticSMTP/releases/latest)
 [![License](https://img.shields.io/github/license/anlar/LunaticSMTP.svg)](https://github.com/anlar/LunaticSMTP/blob/master/LICENSE)
+[![Become a patron](https://img.shields.io/badge/patreon-donate-e85128.svg)](https://www.patreon.com/bePatron?u=5284588)
 
 Dummy SMTP server with JavaFX gui for testing email sending applications.
 
