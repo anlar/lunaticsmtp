@@ -101,7 +101,8 @@
                         <center>
                             <TableView fx:id="messagesTable">
                                 <columns>
-                                    <PercentageTableColumn percentageWidth="100">
+                                    <!-- set to 99% to remove small scrollbar -->
+                                    <PercentageTableColumn percentageWidth="99">
                                         <cellFactory>
                                             <EmailTableFactory/>
                                         </cellFactory>
