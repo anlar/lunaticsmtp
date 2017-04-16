@@ -81,7 +81,7 @@
     <center>
         <TabPane tabClosingPolicy="UNAVAILABLE" side="LEFT">
             <Tab text="%gui.tab.emails">
-                <SplitPane dividerPositions="0.1">
+                <SplitPane dividerPositions="0.3">
 
                     <BorderPane>
                         <padding>
