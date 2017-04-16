@@ -1,3 +1,9 @@
+## v0.3.0 (2017-04-16) Menacing Hallucination
+
+* New vertical layout for GUI.
+* Ability to view all parts of multi-part emails.
+* Filter emails by their titles.
+
 ## v0.2.1 (2016-12-20) Disbelief Aspect B
 
 * Improvements for deb-package.
