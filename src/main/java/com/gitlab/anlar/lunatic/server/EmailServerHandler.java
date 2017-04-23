@@ -105,7 +105,7 @@ public class EmailServerHandler extends Observable implements SimpleMessageListe
             }
         }
 
-        return new Email(rawContent, new Date(), subject, from, recipient, parts);
+        return new Email(rawContent, message.getSentDate(), subject, from, recipient, parts);
     }
 
     private EmailPart createEmailPart(Object content, String contentType) {
