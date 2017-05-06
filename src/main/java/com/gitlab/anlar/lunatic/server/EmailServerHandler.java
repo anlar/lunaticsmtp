@@ -25,10 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.subethamail.smtp.helper.SimpleMessageListener;
 
-import javax.mail.BodyPart;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.Session;
+import javax.mail.*;
 import javax.mail.internet.MimeMessage;
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
@@ -71,7 +68,7 @@ public class EmailServerHandler extends Observable implements SimpleMessageListe
     @Override
     public void deliver(String from, String recipient, InputStream data) throws IOException {
         try {
-            Email email = parseMessage(from, recipient, data);
+            Email email = parseMessage(data);
             String filePath = save(email);
             email.setFilePath(filePath);
 
@@ -81,7 +78,7 @@ public class EmailServerHandler extends Observable implements SimpleMessageListe
         }
     }
 
-    private Email parseMessage(String from, String recipient, InputStream data) throws MessagingException, IOException {
+    private Email parseMessage(InputStream data) throws MessagingException, IOException {
         String rawContent = new Scanner(data, "UTF-8").useDelimiter("\\A").next();
 
         Session session = Session.getDefaultInstance(new Properties());
@@ -105,7 +102,10 @@ public class EmailServerHandler extends Observable implements SimpleMessageListe
             }
         }
 
-        return new Email(rawContent, message.getSentDate(), subject, from, recipient, parts);
+        return new Email(rawContent, message.getSentDate(), subject,
+                mergeAddresses(message.getFrom()),
+                mergeAddresses(message.getRecipients(Message.RecipientType.TO)),
+                parts);
     }
 
     private EmailPart createEmailPart(Object content, String contentType) {
@@ -138,6 +138,10 @@ public class EmailServerHandler extends Observable implements SimpleMessageListe
 
     private boolean isSuitableContentType(String value, String type) {
         return Pattern.compile(Pattern.quote(type), Pattern.CASE_INSENSITIVE).matcher(value).find();
+    }
+
+    private String mergeAddresses(Address[] addresses) {
+        return StringUtils.join(addresses, ", ");
     }
 
     private String save(Email email) {
