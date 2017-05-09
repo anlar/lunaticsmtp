@@ -157,7 +157,7 @@ public class ServerTest {
     }
 
     private void initNullEmailWriter() {
-        EmailServer.initEmailWriter(new SaverConfig() {
+        EmailServer.init(new SaverConfig() {
             @Override
             public boolean isActive() {
                 return false;
@@ -167,6 +167,6 @@ public class ServerTest {
             public String getDirectory() {
                 return null;
             }
-        });
+        }, false, null);
     }
 }

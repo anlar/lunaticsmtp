@@ -78,7 +78,7 @@ public class Lunatic {
     }
 
     private static void startServer(int port, boolean isWrite, String directory) {
-        EmailServer.initEmailWriter(new SaverConfig() {
+        EmailServer.init(new SaverConfig() {
             @Override
             public boolean isActive() {
                 return isWrite;
@@ -88,7 +88,7 @@ public class Lunatic {
             public String getDirectory() {
                 return directory;
             }
-        });
+        }, false, directory);
 
         StartResult result = EmailServer.start(port);
 

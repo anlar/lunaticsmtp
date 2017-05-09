@@ -115,6 +115,8 @@ public class MainWindowController implements Initializable {
         initTableFilter();
         initControlPanel(config);
 
+        loadSavedEmails(config);
+
         if (config.isStart()) {
             // launch server in separate thread so it won't block main window appearance with warning dialog
             // in case if error will occur during it's start
@@ -159,7 +161,7 @@ public class MainWindowController implements Initializable {
     }
 
     private void initListeners(Config config) {
-        EmailServer.initEmailWriter(new SaverConfig() {
+        EmailServer.init(new SaverConfig() {
             @Override
             public boolean isActive() {
                 return saveDirCheck.isSelected();
@@ -169,7 +171,7 @@ public class MainWindowController implements Initializable {
             public String getDirectory() {
                 return dirField.getText();
             }
-        });
+        }, config.isWrite(), config.getDirectory());
 
         tableFilter.textProperty().addListener((observable, oldValue, newValue) -> {
             if (StringUtils.isNotBlank(newValue)) {
@@ -272,6 +274,19 @@ public class MainWindowController implements Initializable {
 
         dirField.setText(config.getDirectory());
         saveDirCheck.setSelected(config.isWrite());
+    }
+
+    private void loadSavedEmails(Config config) {
+        messages.addAll(EmailServer.getEmails());
+        updateMessagesCount();
+
+        if (config.isJumpToLast()) {
+            messagesTable.getSelectionModel().selectLast();
+
+            if (messages.size() > 0) {
+                messagesTable.scrollTo(messages.size() - 1);
+            }
+        }
     }
 
     private void startServer() {

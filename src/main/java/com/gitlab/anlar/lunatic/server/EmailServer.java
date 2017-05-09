@@ -18,6 +18,7 @@
 
 package com.gitlab.anlar.lunatic.server;
 
+import com.gitlab.anlar.lunatic.dto.Email;
 import com.gitlab.anlar.lunatic.server.auth.SMTPAuthHandlerFactory;
 import com.gitlab.anlar.lunatic.util.Messages;
 import org.slf4j.Logger;
@@ -26,6 +27,8 @@ import org.subethamail.smtp.helper.SimpleMessageListenerAdapter;
 import org.subethamail.smtp.server.SMTPServer;
 
 import java.net.BindException;
+import java.util.Collections;
+import java.util.List;
 import java.util.Observer;
 
 public class EmailServer {
@@ -34,8 +37,8 @@ public class EmailServer {
     private static EmailServerHandler listener = null;
     private static SMTPServer smtpServer = null;
 
-    public static void initEmailWriter(SaverConfig config) {
-        listener = new EmailServerHandler(config);
+    public static void init(SaverConfig config, boolean loadSavedEmails, String saveDir) {
+        listener = new EmailServerHandler(config, loadSavedEmails, saveDir);
     }
 
     public static StartResult start(int port) {
@@ -74,5 +77,9 @@ public class EmailServer {
 
     public static void clear() {
         listener.clearStorage();
+    }
+
+    public static List<Email> getEmails() {
+        return listener != null ? listener.getEmails() : Collections.emptyList();
     }
 }
