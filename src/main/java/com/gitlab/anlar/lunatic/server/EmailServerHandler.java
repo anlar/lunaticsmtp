@@ -180,7 +180,7 @@ public class EmailServerHandler extends Observable implements SimpleMessageListe
     private String save(Email email) {
         if (config.isActive()) {
             Path dir = Paths.get(config.getDirectory());
-            Path file = Paths.get(config.getDirectory(), getFileName(email));
+            Path file = Paths.get(config.getDirectory(), getFileName(new Date()));
 
             try {
                 Files.createDirectories(dir);
@@ -197,8 +197,8 @@ public class EmailServerHandler extends Observable implements SimpleMessageListe
         return null;
     }
 
-    private String getFileName(Email email) {
-        return new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss_").format(email.getDate())
+    private String getFileName(Date date) {
+        return new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss_").format(date)
                 + UUID.randomUUID().toString().substring(0, 8)
                 + ".eml";
     }
