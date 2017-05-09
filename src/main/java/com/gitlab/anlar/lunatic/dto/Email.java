@@ -18,6 +18,7 @@
 
 package com.gitlab.anlar.lunatic.dto;
 
+import javax.mail.Header;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +30,7 @@ public class Email {
     private String from;
     private String to;
 
+    private List<Header> headers;
     private List<EmailPart> parts;
 
     private String filePath;
@@ -37,12 +39,16 @@ public class Email {
         // do nothing
     }
 
-    public Email(String content, Date date, String subject, String from, String to, List<EmailPart> parts) {
+    public Email(String content, Date date,
+                 String subject, String from, String to,
+                 List<Header> headers, List<EmailPart> parts) {
+
         this.content = content;
         this.date = date;
         this.subject = subject;
         this.from = from;
         this.to = to;
+        this.headers = headers;
         this.parts = parts;
     }
 
@@ -84,6 +90,14 @@ public class Email {
 
     public void setTo(String to) {
         this.to = to;
+    }
+
+    public List<Header> getHeaders() {
+        return headers;
+    }
+
+    public void setHeaders(List<Header> headers) {
+        this.headers = headers;
     }
 
     public List<EmailPart> getParts() {

@@ -47,6 +47,7 @@ import org.controlsfx.control.textfield.TextFields;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.mail.Header;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -103,6 +104,8 @@ public class MainWindowController implements Initializable {
 
     @FXML
     private ObservableList<EmailPart> parts;
+    @FXML
+    private ObservableList<Header> headers;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -194,6 +197,10 @@ public class MainWindowController implements Initializable {
 
                 parts.clear();
                 parts.addAll(newValue.getParts());
+
+                headers.clear();
+                headers.addAll(newValue.getHeaders());
+
                 emailPart.getSelectionModel().selectFirst();
             } else {
                 emailScreenTabPane.getSelectionModel().select(0);

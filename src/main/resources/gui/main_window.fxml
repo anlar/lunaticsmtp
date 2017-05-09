@@ -26,6 +26,8 @@
 <?import javafx.scene.web.WebView?>
 <?import org.controlsfx.control.textfield.CustomTextField?>
 <?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import com.gitlab.anlar.lunatic.gui.control.PercentageTableColumn?>
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.gitlab.anlar.lunatic.gui.MainWindowController">
 
     <top>
@@ -166,6 +168,25 @@
                                     <TabPane id="emailTabPane" tabClosingPolicy="UNAVAILABLE">
                                         <Tab text="%gui.tab.html">
                                             <WebView fx:id="emailText"/>
+                                        </Tab>
+                                        <Tab text="%gui.tab.headers">
+                                            <TableView>
+                                                <columns>
+                                                    <PercentageTableColumn percentageWidth="30">
+                                                        <cellValueFactory>
+                                                            <PropertyValueFactory property="name"/>
+                                                        </cellValueFactory>
+                                                    </PercentageTableColumn>
+                                                    <PercentageTableColumn percentageWidth="70">
+                                                        <cellValueFactory>
+                                                            <PropertyValueFactory property="value"/>
+                                                        </cellValueFactory>
+                                                    </PercentageTableColumn>
+                                                </columns>
+                                                <items>
+                                                    <FXCollections fx:id="headers" fx:factory="observableArrayList"/>
+                                                </items>
+                                            </TableView>
                                         </Tab>
                                         <Tab text="%gui.tab.source">
                                             <TextArea fx:id="sourceText" editable="false"/>
