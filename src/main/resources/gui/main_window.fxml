@@ -20,7 +20,6 @@
 
 <?import com.gitlab.anlar.lunatic.gui.control.EmailTableFactory?>
 <?import com.gitlab.anlar.lunatic.gui.control.EmailTableValueFactory?>
-<?import com.gitlab.anlar.lunatic.gui.control.PercentageTableColumn?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -99,19 +98,23 @@
                         </top>
 
                         <center>
+                            <StackPane>
                             <TableView fx:id="messagesTable">
+                                <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                </columnResizePolicy>
                                 <columns>
-                                    <!-- set to 99% to remove small scrollbar -->
-                                    <PercentageTableColumn percentageWidth="99">
+                                    <TableColumn>
                                         <cellFactory>
                                             <EmailTableFactory/>
                                         </cellFactory>
                                         <cellValueFactory>
                                             <EmailTableValueFactory/>
                                         </cellValueFactory>
-                                    </PercentageTableColumn>
+                                    </TableColumn>
                                 </columns>
                             </TableView>
+                            </StackPane>
                         </center>
                     </BorderPane>
 
