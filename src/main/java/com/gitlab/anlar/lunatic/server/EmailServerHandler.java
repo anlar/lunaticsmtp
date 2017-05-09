@@ -41,7 +41,6 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class EmailServerHandler extends Observable implements SimpleMessageListener {
     private static final Logger log = LoggerFactory.getLogger(EmailServerHandler.class);
@@ -88,25 +87,27 @@ public class EmailServerHandler extends Observable implements SimpleMessageListe
     }
 
     private void loadEmailsFromDisk(String saveDir) {
-        Path saveDirPath = Paths.get(saveDir);
+        try {
+            Path saveDirPath = Paths.get(saveDir);
 
-        if (Files.isDirectory(saveDirPath)) {
-            try(Stream<Path> paths = Files.walk(saveDirPath, 1)) {
-                paths.forEach(filePath -> {
-                    if (Files.isRegularFile(filePath)) {
-                        try {
-                            Email email = parseMessage(Files.newInputStream(filePath));
-                            email.setFilePath(filePath.toAbsolutePath().toString());
-                            putIntoStorage(email);
-                            log.info(String.format("Loaded email from '%s'", filePath.toAbsolutePath().toString()));
-                        } catch (Throwable e) {
-                            log.error(String.format("Failed to load email from '%s'", filePath.toString()), e);
-                        }
+            if (Files.isDirectory(saveDirPath)) {
+                Files.walk(saveDirPath, 1)
+                        .filter(foundPath -> Files.isRegularFile(foundPath)
+                                && StringUtils.endsWithIgnoreCase(foundPath.toString(), ".eml"))
+                        .sorted().forEach(path -> {
+
+                    try {
+                        Email email = parseMessage(Files.newInputStream(path));
+                        email.setFilePath(path.toAbsolutePath().toString());
+                        putIntoStorage(email);
+                        log.debug(String.format("Loaded email from '%s'", path.toAbsolutePath().toString()));
+                    } catch (Throwable e) {
+                        log.error(String.format("Failed to load email from '%s'", path.toString()), e);
                     }
                 });
-            } catch (IOException e) {
-                log.error(String.format("Failed to load emails from dir '%s'", saveDirPath.toString()), e);
             }
+        } catch (IOException e) {
+            log.error(String.format("Failed to load emails from '%s' directory", saveDir), e);
         }
     }
 
