@@ -167,8 +167,8 @@
                                         <Tab text="%gui.tab.html">
                                             <WebView fx:id="emailText"/>
                                         </Tab>
-                                        <Tab text="%gui.tab.raw">
-                                            <TextArea fx:id="rawText" editable="false"/>
+                                        <Tab text="%gui.tab.source">
+                                            <TextArea fx:id="sourceText" editable="false"/>
                                         </Tab>
                                     </TabPane>
                                 </center>

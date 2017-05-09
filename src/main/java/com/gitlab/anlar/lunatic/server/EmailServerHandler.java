@@ -112,10 +112,10 @@ public class EmailServerHandler extends Observable implements SimpleMessageListe
     }
 
     private Email parseMessage(InputStream data) throws MessagingException, IOException {
-        String rawContent = new Scanner(data, "UTF-8").useDelimiter("\\A").next();
+        String sourceContent = new Scanner(data, "UTF-8").useDelimiter("\\A").next();
 
         Session session = Session.getDefaultInstance(new Properties());
-        MimeMessage message = new MimeMessage(session, new ByteArrayInputStream(rawContent.getBytes(StandardCharsets.UTF_8)));
+        MimeMessage message = new MimeMessage(session, new ByteArrayInputStream(sourceContent.getBytes(StandardCharsets.UTF_8)));
         String subject = message.getSubject();
 
         Object content = message.getContent();
@@ -135,7 +135,7 @@ public class EmailServerHandler extends Observable implements SimpleMessageListe
             }
         }
 
-        return new Email(rawContent, message.getSentDate(), subject,
+        return new Email(sourceContent, message.getSentDate(), subject,
                 mergeAddresses(message.getFrom()),
                 mergeAddresses(message.getRecipients(Message.RecipientType.TO)),
                 parts);

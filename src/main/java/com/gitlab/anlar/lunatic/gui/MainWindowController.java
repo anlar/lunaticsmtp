@@ -88,7 +88,7 @@ public class MainWindowController implements Initializable {
     @FXML
     private WebView emailText;
     @FXML
-    private TextArea rawText;
+    private TextArea sourceText;
     @FXML
     private CustomTextField tableFilter;
     @FXML
@@ -190,7 +190,7 @@ public class MainWindowController implements Initializable {
                 emailSubject.setText(newValue.getSubject());
                 emailDate.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(newValue.getDate()));
 
-                rawText.setText(newValue.getContent());
+                sourceText.setText(newValue.getContent());
 
                 parts.clear();
                 parts.addAll(newValue.getParts());
@@ -198,7 +198,7 @@ public class MainWindowController implements Initializable {
             } else {
                 emailScreenTabPane.getSelectionModel().select(0);
 
-                rawText.setText(null);
+                sourceText.setText(null);
             }
         });
 
