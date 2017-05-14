@@ -1,11 +1,10 @@
-
 /* control panel */
 
 #messagesField, #emailSubject {
     -fx-font-weight: bold;
 }
 
-/* email table */
+/* email and header tables: hide title-bar and empty lines */
 
 .column-header-background {
     visibility: hidden; -fx-padding: -1em;
@@ -21,11 +20,11 @@
 
 /* email viewer */
 
-#emailFromLabel, #emailToLabel, #emailSubjectLabel, #emailPartLabel {
+.email-info-label {
     -fx-text-fill: grey;
 }
 
-#emailFrom, #emailTo, #emailSubject, #emailDate {
+.email-info-field {
     -fx-background-color: transparent;
     -fx-background-insets: 0px;
 }

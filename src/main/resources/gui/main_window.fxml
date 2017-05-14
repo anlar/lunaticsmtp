@@ -134,27 +134,35 @@
                                         </columnConstraints>
 
                                         <Label id="emailFromLabel" text="%gui.email.from"
+                                               styleClass="email-info-label"
                                                GridPane.columnIndex="0" GridPane.rowIndex="0"/>
                                         <TextField fx:id="emailFrom" editable="false"
+                                                   styleClass="email-info-field"
                                                    GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 
                                         <Label id="emailSubjectLabel" text="%gui.email.subject" textAlignment="RIGHT"
+                                               styleClass="email-info-label"
                                                GridPane.columnIndex="0" GridPane.rowIndex="1"/>
                                         <TextField fx:id="emailSubject" editable="false"
+                                                   styleClass="email-info-field"
                                                    GridPane.columnIndex="1" GridPane.rowIndex="1"/>
                                         <TextField fx:id="emailDate" alignment="CENTER_RIGHT" editable="false"
+                                                   styleClass="email-info-field"
                                                    GridPane.columnIndex="2" GridPane.rowIndex="1"/>
 
                                         <Label id="emailToLabel" text="%gui.email.to" textAlignment="RIGHT"
+                                               styleClass="email-info-label"
                                                GridPane.columnIndex="0" GridPane.rowIndex="2"/>
                                         <TextField fx:id="emailTo" editable="false"
+                                                   styleClass="email-info-field"
                                                    GridPane.columnIndex="1" GridPane.rowIndex="2"/>
 
                                         <Label id="emailPartLabel" text="%gui.email.part" textAlignment="RIGHT"
+                                               styleClass="email-info-label"
                                                GridPane.columnIndex="0" GridPane.rowIndex="3"/>
                                         <ComboBox fx:id="emailPart"
                                                   GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.columnSpan="2"
-                                                  GridPane.hgrow="ALWAYS" maxWidth="Infinity" >
+                                                  GridPane.hgrow="ALWAYS" maxWidth="Infinity">
                                             <items>
                                                 <FXCollections fx:id="parts" fx:factory="observableArrayList"/>
                                             </items>
