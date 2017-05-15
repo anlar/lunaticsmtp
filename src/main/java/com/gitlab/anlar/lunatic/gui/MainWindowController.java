@@ -34,7 +34,9 @@ import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.scene.web.WebView;
 import javafx.stage.DirectoryChooser;
 import org.apache.commons.lang3.StringUtils;
@@ -76,9 +78,17 @@ public class MainWindowController implements Initializable {
     public TabPane emailScreenTabPane;
 
     @FXML
+    public GridPane emailHeader;
+
+    @FXML
+    public Label emailCcLabel;
+
+    @FXML
     public TextField emailFrom;
     @FXML
     public TextField emailTo;
+    @FXML
+    public TextField emailCc;
     @FXML
     public TextField emailSubject;
     @FXML
@@ -117,6 +127,7 @@ public class MainWindowController implements Initializable {
         initTable();
         initTableFilter();
         initControlPanel(config);
+        initEmailViewer();
 
         loadSavedEmails(config);
 
@@ -190,8 +201,16 @@ public class MainWindowController implements Initializable {
 
                 emailFrom.setText(newValue.getFrom());
                 emailTo.setText(newValue.getTo());
+                emailCc.setText(newValue.getCc());
                 emailSubject.setText(newValue.getSubject());
                 emailDate.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(newValue.getDate()));
+
+                boolean hasCc = StringUtils.isNotBlank(newValue.getCc());
+
+                emailCc.setVisible(hasCc);
+                emailCc.setManaged(hasCc);
+                emailCcLabel.setVisible(hasCc);
+                emailCcLabel.setManaged(hasCc);
 
                 sourceText.setText(newValue.getContent());
 
@@ -281,6 +300,13 @@ public class MainWindowController implements Initializable {
 
         dirField.setText(config.getDirectory());
         saveDirCheck.setSelected(config.isWrite());
+    }
+
+    private void initEmailViewer() {
+        emailHeader.getChildren().forEach(node -> {
+            int index = GridPane.getRowIndex(node);
+            GridPane.setMargin(node, new Insets(index > 0 ? 5 : 0, 0, 0, 0));
+        });
     }
 
     private void loadSavedEmails(Config config) {

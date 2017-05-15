@@ -29,6 +29,7 @@ public class Email {
     private String subject;
     private String from;
     private String to;
+    private String cc;
 
     private List<Header> headers;
     private List<EmailPart> parts;
@@ -39,8 +40,8 @@ public class Email {
         // do nothing
     }
 
-    public Email(String content, Date date,
-                 String subject, String from, String to,
+    public Email(String content, Date date, String subject,
+                 String from, String to, String cc,
                  List<Header> headers, List<EmailPart> parts) {
 
         this.content = content;
@@ -48,6 +49,7 @@ public class Email {
         this.subject = subject;
         this.from = from;
         this.to = to;
+        this.cc = cc;
         this.headers = headers;
         this.parts = parts;
     }
@@ -90,6 +92,14 @@ public class Email {
 
     public void setTo(String to) {
         this.to = to;
+    }
+
+    public String getCc() {
+        return cc;
+    }
+
+    public void setCc(String cc) {
+        this.cc = cc;
     }
 
     public List<Header> getHeaders() {

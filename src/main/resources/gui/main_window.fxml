@@ -123,7 +123,7 @@
                         <Tab>
                             <BorderPane>
                                 <top>
-                                    <GridPane alignment="CENTER_LEFT" hgap="5" vgap="5">
+                                    <GridPane fx:id="emailHeader" alignment="CENTER_LEFT" hgap="5">
                                         <padding>
                                             <Insets right="10" bottom="10" left="10"/>
                                         </padding>
@@ -157,11 +157,18 @@
                                                    styleClass="email-info-field"
                                                    GridPane.columnIndex="1" GridPane.rowIndex="2"/>
 
-                                        <Label id="emailPartLabel" text="%gui.email.part" textAlignment="RIGHT"
+                                        <Label fx:id="emailCcLabel" text="%gui.email.cc" textAlignment="RIGHT"
                                                styleClass="email-info-label"
                                                GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                                        <TextField fx:id="emailCc" editable="false"
+                                                   styleClass="email-info-field"
+                                                   GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+                                        <Label id="emailPartLabel" text="%gui.email.part" textAlignment="RIGHT"
+                                               styleClass="email-info-label"
+                                               GridPane.columnIndex="0" GridPane.rowIndex="4"/>
                                         <ComboBox fx:id="emailPart"
-                                                  GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.columnSpan="2"
+                                                  GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.columnSpan="2"
                                                   GridPane.hgrow="ALWAYS" maxWidth="Infinity">
                                             <items>
                                                 <FXCollections fx:id="parts" fx:factory="observableArrayList"/>

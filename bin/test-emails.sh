@@ -35,6 +35,7 @@ touch /tmp/dm.sh
 
 sendemail -s localhost:2525 \
  -t 'Tewi Inaba <tewi.inaba@eientei.com>' \
+ -cc 'Eirin Yagokoro <eirin@moon.com>' \
  -f 'Reisen Udongein Inaba <reisen.udongein@moon.com>' \
  -u News \
  -o message-content-type=html \

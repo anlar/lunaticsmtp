@@ -138,6 +138,7 @@ public class EmailServerHandler extends Observable implements SimpleMessageListe
         return new Email(sourceContent, message.getSentDate(), subject,
                 mergeAddresses(message.getFrom()),
                 mergeAddresses(message.getRecipients(Message.RecipientType.TO)),
+                mergeAddresses(message.getRecipients(Message.RecipientType.CC)),
                 Collections.list(message.getAllHeaders()),
                 parts);
     }
