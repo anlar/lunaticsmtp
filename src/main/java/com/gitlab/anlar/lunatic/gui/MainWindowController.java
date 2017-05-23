@@ -36,6 +36,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.web.WebView;
 import javafx.stage.DirectoryChooser;
@@ -50,10 +54,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.mail.Header;
+import java.awt.*;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
@@ -97,6 +106,9 @@ public class MainWindowController implements Initializable {
     public ComboBox<EmailPart> emailPart;
 
     @FXML
+    public Button viewButton;
+
+    @FXML
     private WebView emailText;
     @FXML
     private TextArea sourceText;
@@ -117,6 +129,8 @@ public class MainWindowController implements Initializable {
     @FXML
     private ObservableList<Header> headers;
 
+    private Desktop desktop;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Config config = Config.getInstance();
@@ -128,6 +142,7 @@ public class MainWindowController implements Initializable {
         initTableFilter();
         initControlPanel(config);
         initEmailViewer();
+        initEmailButtons();
 
         loadSavedEmails(config);
 
@@ -158,6 +173,32 @@ public class MainWindowController implements Initializable {
         File file = chooser.showDialog(dirButton.getScene().getWindow());
         if (file != null) {
             dirField.setText(file.getAbsolutePath());
+        }
+    }
+
+    @FXML
+    public void handleViewButton(ActionEvent event) {
+        if (desktop != null) {
+            Email email = messagesTable.getSelectionModel().getSelectedItem();
+
+            try {
+                Path file = Files.createTempFile("lunaticsmtp-", ".eml");
+                file.toFile().deleteOnExit();
+
+                try (BufferedWriter writer = Files.newBufferedWriter(file)) {
+                    writer.write(email.getContent());
+                }
+
+                EventQueue.invokeLater(() -> {
+                    try {
+                        this.desktop.browse(file.toUri());
+                    } catch (IOException e) {
+                        log.error("Failed to open file {}", file.toString(), e);
+                    }
+                });
+            } catch (IOException e) {
+                log.error("Failed to create temp file", e);
+            }
         }
     }
 
@@ -307,6 +348,20 @@ public class MainWindowController implements Initializable {
             int index = GridPane.getRowIndex(node);
             GridPane.setMargin(node, new Insets(index > 0 ? 5 : 0, 0, 0, 0));
         });
+    }
+
+    private void initEmailButtons() {
+        if (Desktop.isDesktopSupported()) {
+            this.desktop = Desktop.getDesktop();
+
+            if (!this.desktop.isSupported(Desktop.Action.BROWSE)) {
+                this.desktop = null;
+            }
+        }
+
+        if (this.desktop == null) {
+            viewButton.setDisable(true);
+        }
     }
 
     private void loadSavedEmails(Config config) {

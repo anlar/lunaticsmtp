@@ -36,3 +36,9 @@
 #emailTabPane .tab-header-area {
     visibility: visible;
 }
+
+/* email viewer tab header */
+
+#emailTabPane *.tab-header-background {
+    -fx-background-color: transparent;
+}

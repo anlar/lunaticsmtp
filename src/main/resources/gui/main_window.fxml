@@ -178,33 +178,41 @@
                                 </top>
 
                                 <center>
-                                    <TabPane id="emailTabPane" tabClosingPolicy="UNAVAILABLE">
-                                        <Tab text="%gui.tab.html">
-                                            <WebView fx:id="emailText"/>
-                                        </Tab>
-                                        <Tab text="%gui.tab.headers">
-                                            <TableView>
-                                                <columns>
-                                                    <PercentageTableColumn percentageWidth="30">
-                                                        <cellValueFactory>
-                                                            <PropertyValueFactory property="name"/>
-                                                        </cellValueFactory>
-                                                    </PercentageTableColumn>
-                                                    <PercentageTableColumn percentageWidth="70">
-                                                        <cellValueFactory>
-                                                            <PropertyValueFactory property="value"/>
-                                                        </cellValueFactory>
-                                                    </PercentageTableColumn>
-                                                </columns>
-                                                <items>
-                                                    <FXCollections fx:id="headers" fx:factory="observableArrayList"/>
-                                                </items>
-                                            </TableView>
-                                        </Tab>
-                                        <Tab text="%gui.tab.source">
-                                            <TextArea fx:id="sourceText" editable="false"/>
-                                        </Tab>
-                                    </TabPane>
+                                    <AnchorPane >
+                                        <TabPane id="emailTabPane" tabClosingPolicy="UNAVAILABLE"
+                                                 AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                                 AnchorPane.leftAnchor="0.0" AnchorPane.bottomAnchor="0.0">
+                                            <Tab text="%gui.tab.html">
+                                                <WebView fx:id="emailText"/>
+                                            </Tab>
+                                            <Tab text="%gui.tab.headers">
+                                                <TableView>
+                                                    <columns>
+                                                        <PercentageTableColumn percentageWidth="30">
+                                                            <cellValueFactory>
+                                                                <PropertyValueFactory property="name"/>
+                                                            </cellValueFactory>
+                                                        </PercentageTableColumn>
+                                                        <PercentageTableColumn percentageWidth="70">
+                                                            <cellValueFactory>
+                                                                <PropertyValueFactory property="value"/>
+                                                            </cellValueFactory>
+                                                        </PercentageTableColumn>
+                                                    </columns>
+                                                    <items>
+                                                        <FXCollections fx:id="headers"
+                                                                       fx:factory="observableArrayList"/>
+                                                    </items>
+                                                </TableView>
+                                            </Tab>
+                                            <Tab text="%gui.tab.source">
+                                                <TextArea fx:id="sourceText" editable="false"/>
+                                            </Tab>
+                                        </TabPane>
+                                        <HBox AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="10.0" spacing="10">
+                                            <Button fx:id="viewButton" text="%gui.button.view" onAction="#handleViewButton"/>
+                                        </HBox>
+                                    </AnchorPane>
                                 </center>
                             </BorderPane>
                         </Tab>
