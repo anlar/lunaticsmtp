@@ -210,7 +210,11 @@
                                             </Tab>
                                         </TabPane>
                                         <HBox AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="10.0" spacing="10">
-                                            <Button fx:id="viewButton" text="%gui.button.view" onAction="#handleViewButton"/>
+                                            <Button fx:id="viewButton" text="%gui.button.view" onAction="#handleViewButton">
+                                                <graphic>
+                                                    <Label styleClass="awesome">&#xf08e;</Label>
+                                                </graphic>
+                                            </Button>
                                         </HBox>
                                     </AnchorPane>
                                 </center>

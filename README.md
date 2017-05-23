@@ -69,3 +69,5 @@ Note: if you don't have git installed you should remove from `build.gradle` git 
 ## Copyright
 
 Source code released under GPL3+, see [LICENSE](LICENSE) for details.
+
+Some icons are rendered from the embedded [Font Awesome](http://fontawesome.io/) by Dave Gandy, made available under the [SIL OFL 1.1 License](http://scripts.sil.org/OFL).

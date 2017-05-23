@@ -43,6 +43,9 @@ public class LunaticApplication extends Application {
     public void start(Stage stage) throws Exception {
         Config.TrayMode trayMode = Config.getInstance().getTrayMode();
 
+        javafx.scene.text.Font.loadFont(
+                getClass().getClassLoader().getResource("fontawesome-webfont.ttf").toExternalForm(), 12);
+
         //noinspection ConstantConditions
         Parent root = FXMLLoader.load(
                 getClass().getClassLoader().getResource("gui/main_window.fxml"), Messages.getResources());

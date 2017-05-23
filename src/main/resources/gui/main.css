@@ -42,3 +42,9 @@
 #emailTabPane *.tab-header-background {
     -fx-background-color: transparent;
 }
+
+/* font awesome icons */
+
+.awesome {
+    -fx-font-family: FontAwesome;
+}
