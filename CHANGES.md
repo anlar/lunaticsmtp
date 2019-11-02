@@ -1,3 +1,11 @@
+## v0.4.0 (2019-11-02) Eyesight Cleaning
+
+* Load saved emails from disk on start up.
+* Display fully formatted email addresses.
+* Add separate tab for email headers.
+* Show CC field.
+* Button to open email in external application.
+
 ## v0.3.0 (2017-04-16) Menacing Hallucination
 
 * New vertical layout for GUI.
