@@ -17,18 +17,20 @@
  */
 
 plugins {
+    id 'application'
     id 'java'
     id 'idea'
-    id 'com.github.ben-manes.versions' version '0.12.0'
-    id 'nebula.ospackage' version '4.3.0'
+    id 'org.openjfx.javafxplugin' version '0.0.8'
+    id 'nebula.ospackage' version '8.0.0'
+    id 'com.github.ben-manes.versions' version '0.27.0'
 }
 
 repositories {
     mavenCentral()
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 11
+targetCompatibility = 11
 
 ext {
     applicationName = 'LunaticSMTP'
@@ -43,9 +45,14 @@ ext {
 
 idea {
     project {
-        jdkName = '1.8'
+        jdkName = 'openjdk-11'
         vcs = 'Git'
     }
+}
+
+javafx {
+    version = "11"
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.web']
 }
 
 dependencies {
@@ -55,10 +62,11 @@ dependencies {
     compile 'org.apache.commons:commons-lang3:3.4'
     compile 'com.beust:jcommander:1.48'
     compile 'org.subethamail:subethasmtp:3.1.7'
-    compile 'org.controlsfx:controlsfx:8.40.12'
+    compile 'org.controlsfx:controlsfx:11.0.0'
 
     testCompile 'junit:junit:4.12'
-    testCompile "org.testfx:testfx-legacy:4.0.4-alpha"
+    testCompile 'org.testfx:testfx-core:4.0.16-alpha'
+    testCompile 'org.testfx:testfx-junit:4.0.15-alpha'
 }
 
 tasks.withType(Jar) {
