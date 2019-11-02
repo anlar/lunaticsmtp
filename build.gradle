@@ -89,16 +89,15 @@ tasks.withType(Jar) {
 }
 
 task('release', type: Jar, dependsOn: 'check', description: 'Assembles a jar archive with application.') {
-    baseName = applicationName
-    version = 'v' + baseVersion
+    archiveBaseName = applicationName
+    archiveVersion = 'v' + baseVersion
 
     Properties props = new Properties()
     props.setProperty('version', baseVersion)
     props.setProperty('gitShortRevision', gitShortRevision)
 
-    new File("build/resources/main").mkdirs()
-    File propsFile = new File("build/resources/main/version.properties")
-    propsFile.createNewFile()
+    mkdir("$buildDir/resources/main")
+    File propsFile = file("$buildDir/resources/main/version.properties")
     props.store(propsFile.newWriter(), null)
 
     from {
