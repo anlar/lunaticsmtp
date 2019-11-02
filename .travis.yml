@@ -2,7 +2,10 @@ language: java
 
 jdk:
   - openjdk11
-  - oraclejdk11
+  - openjdk12
+  - openjdk13
+  - openjdk14
+  - openjdk-ea
 
 addons:
   apt:
@@ -13,8 +16,8 @@ deploy:
   provider: releases
   api_key: "${API_KEY}"
   file:
-      - "build/libs/LunaticSMTP-${TRAVIS_TAG}.jar"
-      - "build/distributions/lunaticsmtp_${TRAVIS_TAG:1}-1_all.deb"
+    - "build/libs/LunaticSMTP-${TRAVIS_TAG}.jar"
+    - "build/distributions/lunaticsmtp_${TRAVIS_TAG:1}-1_all.deb"
   skip_cleanup: true
   on:
     tags: true
