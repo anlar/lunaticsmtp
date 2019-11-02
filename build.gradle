@@ -68,6 +68,12 @@ dependencies {
     testCompile 'org.testfx:testfx-junit:4.0.15-alpha'
 }
 
+test {
+    if (System.properties['test.profile'] == 'headless') {
+        exclude '**/gui/*'
+    }
+}
+
 tasks.withType(Jar) {
     manifest {
         attributes(

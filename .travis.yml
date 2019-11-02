@@ -20,5 +20,5 @@ deploy:
     tags: true
 
 script:
-  - gradle releaseDeb
+  - gradle releaseDeb -Dtest.profile=headless
   - lintian build/distributions/*.deb -v --pedantic --suppress-tags debian-changelog-file-missing,manpage-not-compressed
