@@ -22,23 +22,35 @@ import com.gitlab.anlar.lunatic.server.EmailServer;
 import com.gitlab.anlar.lunatic.util.Messages;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import junit.framework.TestCase;
 import org.junit.Test;
+import org.testfx.framework.junit.ApplicationTest;
 
 import java.io.IOException;
 
-public class GuiTest extends org.loadui.testfx.GuiTest {
+public class GuiTest extends ApplicationTest {
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        super.start(stage);
+
+        Parent sceneRoot = getRootNode();
+        Scene scene = new Scene(sceneRoot, 100, 100);
+        stage.setScene(scene);
+        stage.show();
+    }
 
     @Test
     public void startAndStop() {
         clickOn("#startButton");
-        TestCase.assertEquals("Server hasn't started after start button activation", true, EmailServer.isRunning());
+        TestCase.assertTrue("Server hasn't started after start button activation", EmailServer.isRunning());
         clickOn("#startButton");
-        TestCase.assertEquals("Server hasn't stopped after stop button activation", false, EmailServer.isRunning());
+        TestCase.assertFalse("Server hasn't stopped after stop button activation", EmailServer.isRunning());
     }
 
-    @Override
-    protected Parent getRootNode() {
+    private Parent getRootNode() {
         try {
             return FXMLLoader.load(getClass().getClassLoader().getResource("gui/main_window.fxml"), Messages.getResources());
         } catch (IOException e) {

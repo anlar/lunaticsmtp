@@ -1,26 +1,28 @@
-dist: trusty
-
 language: java
 
 jdk:
-  - oraclejdk8
+  - openjdk11
+  - openjdk12
+# Java 13 support is planned for Gradle 6.0
+#  - openjdk13
+#  - openjdk14
+#  - openjdk-ea
 
 addons:
   apt:
     packages:
-      - oracle-java8-installer
       - lintian
 
 deploy:
   provider: releases
   api_key: "${API_KEY}"
   file:
-      - "build/libs/LunaticSMTP-${TRAVIS_TAG}.jar"
-      - "build/distributions/lunaticsmtp_${TRAVIS_TAG:1}-1_all.deb"
+    - "build/libs/LunaticSMTP-${TRAVIS_TAG}.jar"
+    - "build/distributions/lunaticsmtp_${TRAVIS_TAG:1}-1_all.deb"
   skip_cleanup: true
   on:
     tags: true
 
 script:
-  - gradle releaseDeb
+  - gradle releaseDeb -Dtest.profile=headless
   - lintian build/distributions/*.deb -v --pedantic --suppress-tags debian-changelog-file-missing,manpage-not-compressed
