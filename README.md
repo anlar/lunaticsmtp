@@ -11,7 +11,15 @@ Dummy SMTP server with JavaFX gui for testing email sending applications.
 
 ## Requirements
 
-You need Java 8u40 or newer to build and run this application.
+You need Java 11+ and JavaFX module to build and run this application.
+
+## Installation
+
+### Ubuntu (18.04+) and Debian (10+)
+
+Download .deb package from [latest release page](https://github.com/anlar/lunaticsmtp/releases/latest) and install it:
+
+    $ sudo apt install ./lunaticsmtp_X.Y.Z-1_all.deb
 
 ## Usage
 
