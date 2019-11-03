@@ -32,7 +32,7 @@ sourceCompatibility = 11
 targetCompatibility = 11
 
 ext {
-    applicationName = 'LunaticSMTP'
+    applicationName = 'lunaticsmtp'
     baseVersion = '0.4.0'
     mainClass = 'com.gitlab.anlar.lunatic.Lunatic'
     author = 'Anton Larionov'
@@ -119,7 +119,7 @@ task releaseDeb(type: Deb, dependsOn: 'release', description: 'Assembles deb-pac
 
     license = 'GPLv3'
     maintainer = author + ' <contact-via-project-issue-tracker@github.com>'
-    url = 'https://github.com/anlar/LunaticSMTP'
+    url = 'https://github.com/anlar/lunaticsmtp'
     summary = 'dummy SMTP server with GUI'
     packageDescription = 'Simple JavaFX SMTP server for testing email sending applications.'
 
@@ -127,26 +127,26 @@ task releaseDeb(type: Deb, dependsOn: 'release', description: 'Assembles deb-pac
     requires('openjfx')
 
     customField([
-            'Vcs-Browser': 'https://github.com/anlar/LunaticSMTP',
+            'Vcs-Browser': 'https://github.com/anlar/lunaticsmtp',
     ])
 
     from("$buildDir/libs/$applicationName-v${baseVersion}.jar") {
-        into '/usr/share/LunaticSMTP'
+        into '/usr/share/lunaticsmtp'
         rename("$applicationName-v${baseVersion}.jar", "${applicationName}.jar")
         fileMode 0644
     }
 
-    from("package/linux/LunaticSMTP") {
+    from("package/linux/lunaticsmtp") {
         into '/usr/bin'
         fileMode 0755
     }
 
-    from("package/linux/LunaticSMTP.desktop") {
+    from("package/linux/lunaticsmtp.desktop") {
         into '/usr/share/applications'
         fileMode 0644
     }
 
-    from("package/linux/LunaticSMTP.png") {
+    from("package/linux/lunaticsmtp.png") {
         into '/usr/share/pixmaps'
         fileMode 0644
     }
@@ -156,7 +156,7 @@ task releaseDeb(type: Deb, dependsOn: 'release', description: 'Assembles deb-pac
         fileMode 0644
     }
 
-    from("package/linux/LunaticSMTP.1") {
+    from("package/linux/lunaticsmtp.1") {
         into "/usr/share/man/man1"
         fileMode 0644
     }
