@@ -33,7 +33,7 @@ targetCompatibility = 11
 
 ext {
     applicationName = 'lunaticsmtp'
-    baseVersion = '0.4.0'
+    baseVersion = '0.5.0'
     mainClass = 'com.gitlab.anlar.lunatic.Lunatic'
     author = 'Anton Larionov'
 

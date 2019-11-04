@@ -1,3 +1,8 @@
+## v0.5.0 (2019-11-04) Mind Bending
+
+* Migrate to Java 11.
+* Change exec name to lower-case.
+
 ## v0.4.0 (2019-11-02) Eyesight Cleaning
 
 * Load saved emails from disk on start up.
