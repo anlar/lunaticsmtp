@@ -21,4 +21,4 @@ jobs:
         java-version: ${{ matrix.java }}
 
     - name: Run tests and build .deb package
-      run: gradle releaseDeb
+      run: gradle -Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw -Dprism.text=t2k -Dtestfx.setup.timeout=2500 releaseDeb
