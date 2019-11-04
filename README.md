@@ -24,7 +24,7 @@ Download .deb package from [latest release page](https://github.com/anlar/lunati
 
 ## Usage
 
-    Usage: java -jar lunaticsmtp.jar [options]
+    Usage: lunaticsmtp [options]
       Options:
         -c, --cleanup
            Remove saved on disk emails after shutdown
