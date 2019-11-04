@@ -1,0 +1,30 @@
+name: build
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        java: [ '11', '12' ]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v1
+
+    - name: Set up JDK
+      uses: actions/setup-java@v1
+      with:
+        java-version: ${{ matrix.java }}
+
+    - name: Set up lintian
+      run: sudo apt-get install -y lintian
+
+    - name: Run tests and build .deb package
+      run: gradle releaseDeb -Dtest.profile=headless
+
+    - name: Run .deb package check
+      run: lintian build/distributions/*.deb -v --pedantic --suppress-tags debian-changelog-file-missing,manpage-not-compressed

@@ -1,5 +1,6 @@
 # LunaticSMTP
 
+[![Build Status](https://github.com/anlar/lunaticsmtp/workflows/build/badge.svg)](https://github.com/anlar/lunaticsmtp/actions)
 [![Build Status](https://travis-ci.org/anlar/lunaticsmtp.svg?branch=master)](https://travis-ci.org/anlar/lunaticsmtp)
 [![Release](https://img.shields.io/github/release/anlar/lunaticsmtp.svg)](https://github.com/anlar/lunaticsmtp/releases/latest)
 [![License](https://img.shields.io/github/license/anlar/lunaticsmtp.svg)](https://github.com/anlar/lunaticsmtp/blob/master/LICENSE)
