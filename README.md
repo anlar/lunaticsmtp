@@ -1,22 +1,30 @@
 # LunaticSMTP
 
 [![Build Status](https://github.com/anlar/lunaticsmtp/workflows/build/badge.svg)](https://github.com/anlar/lunaticsmtp/actions)
-[![Build Status](https://travis-ci.org/anlar/LunaticSMTP.svg?branch=master)](https://travis-ci.org/anlar/LunaticSMTP)
-[![Release](https://img.shields.io/github/release/anlar/LunaticSMTP.svg)](https://github.com/anlar/LunaticSMTP/releases/latest)
-[![License](https://img.shields.io/github/license/anlar/LunaticSMTP.svg)](https://github.com/anlar/LunaticSMTP/blob/master/LICENSE)
+[![Build Status](https://travis-ci.org/anlar/lunaticsmtp.svg?branch=master)](https://travis-ci.org/anlar/lunaticsmtp)
+[![Release](https://img.shields.io/github/release/anlar/lunaticsmtp.svg)](https://github.com/anlar/lunaticsmtp/releases/latest)
+[![License](https://img.shields.io/github/license/anlar/lunaticsmtp.svg)](https://github.com/anlar/lunaticsmtp/blob/master/LICENSE)
 [![Become a patron](https://img.shields.io/badge/patreon-donate-e85128.svg)](https://www.patreon.com/bePatron?u=5284588)
 
 Dummy SMTP server with JavaFX gui for testing email sending applications.
 
-![screenshot_linux](https://github.com/anlar/LunaticSMTP/raw/master/doc/images/screenshot_linux.png)
+![screenshot_linux](https://github.com/anlar/lunaticsmtp/raw/master/doc/images/screenshot_linux.png)
 
 ## Requirements
 
-You need Java 8u40 or newer to build and run this application.
+You need Java 11+ and JavaFX module to build and run this application.
+
+## Installation
+
+### Ubuntu (18.04+) and Debian (10+)
+
+Download .deb package from [latest release page](https://github.com/anlar/lunaticsmtp/releases/latest) and install it:
+
+    $ sudo apt install ./lunaticsmtp_X.Y.Z-1_all.deb
 
 ## Usage
 
-    Usage: java -jar LunaticSMTP.jar [options]
+    Usage: java -jar lunaticsmtp.jar [options]
       Options:
         -c, --cleanup
            Remove saved on disk emails after shutdown

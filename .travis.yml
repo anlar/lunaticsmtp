@@ -17,7 +17,7 @@ deploy:
   provider: releases
   api_key: "${API_KEY}"
   file:
-    - "build/libs/LunaticSMTP-${TRAVIS_TAG}.jar"
+    - "build/libs/lunaticsmtp-${TRAVIS_TAG}.jar"
     - "build/distributions/lunaticsmtp_${TRAVIS_TAG:1}-1_all.deb"
   skip_cleanup: true
   on:

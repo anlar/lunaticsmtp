@@ -1,6 +1,6 @@
 #! /usr/bin/env sh
 
-#java -jar build/libs/LunaticSMTP-v0.3.0.jar -s -j &
+#java -jar build/libs/lunaticsmtp-v0.3.0.jar -s -j &
 
 #sleep 5
 
@@ -41,5 +41,5 @@ sendemail -s localhost:2525 \
  -o message-content-type=html \
  -a /tmp/dm.sh \
  -m '<p>Hello,</p>
-<p>Test <b>newsletter</b>, with <a href="https://github.com/anlar/LunaticSMTP">links</a> and images:</p>
+<p>Test <b>newsletter</b>, with <a href="https://github.com/anlar/lunaticsmtp">links</a> and images:</p>
 <p><img src="https://en.touhouwiki.net/images/e/e0/GoMSigil-Reisen.jpg" height="200" width="200"></p>'

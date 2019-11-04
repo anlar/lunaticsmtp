@@ -53,7 +53,7 @@ public class Lunatic {
 
     protected static JCommander createCommander(Config config, String[] args) {
         JCommander commander = new JCommander(config, args);
-        commander.setProgramName("java -jar LunaticSMTP.jar");
+        commander.setProgramName("lunaticsmtp");
         return commander;
     }
 
@@ -61,7 +61,7 @@ public class Lunatic {
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("LunaticSMTP, version %s, revision %s\n\n", Version.getVersion(), Version.getGitShortRevision()));
         commander.usage(sb);
-        sb.append("\nReport bugs to: <https://github.com/anlar/LunaticSMTP/issues>");
+        sb.append("\nReport bugs to: <https://github.com/anlar/lunaticsmtp/issues>");
         JCommander.getConsole().println(sb.toString());
     }
 
