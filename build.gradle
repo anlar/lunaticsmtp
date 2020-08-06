@@ -20,7 +20,7 @@ plugins {
     id 'java'
     id 'idea'
     id 'org.openjfx.javafxplugin' version '0.0.8'
-    id 'nebula.ospackage' version '8.0.0'
+    id 'nebula.ospackage' version '8.4.1'
     id 'com.github.ben-manes.versions' version '0.27.0'
 }
 
