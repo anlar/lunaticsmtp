@@ -1,0 +1,92 @@
+/*
+ * LunaticSMTP
+ * Copyright (C) 2016  Anton Larionov
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+plugins {
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.10'
+    id 'nebula.ospackage' version '8.4.1'
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+
+javafx {
+    version = "17"
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.web']
+}
+
+dependencies {
+    implementation 'org.slf4j:slf4j-api:1.7.21'
+    implementation 'org.slf4j:slf4j-log4j12:1.7.21'
+
+    implementation 'org.apache.commons:commons-lang3:3.4'
+    implementation 'com.beust:jcommander:1.48'
+    implementation 'org.subethamail:subethasmtp:3.1.7'
+    implementation 'org.controlsfx:controlsfx:11.0.0'
+
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.testfx:testfx-core:4.0.16-alpha'
+    testImplementation 'org.testfx:testfx-junit:4.0.15-alpha'
+}
+
+application {
+    mainClass = 'com.gitlab.anlar.lunatic.Lunatic'
+}
+
+ext {
+    applicationName = 'lunaticsmtp'
+    baseVersion = '0.5.0'
+    author = 'Anton Larionov'
+
+    buildTime = new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+    gitRevision = 'git rev-parse HEAD'.execute().text.trim()
+    gitShortRevision = 'git rev-parse --short HEAD'.execute().text.trim()
+}
+
+test {
+    if (System.properties['test.profile'] == 'headless') {
+        exclude '**/gui/*'
+    }
+}
+
+jar {
+    manifest {
+        attributes(
+                'Created-By': "${System.getProperty("java.runtime.version")} (${System.getProperty("java.vm.vendor")})",
+                'Build-Time': buildTime,
+
+                'Specification-Title': applicationName,
+                'Specification-Version': baseVersion,
+                'Specification-Vendor': author,
+
+                'Implementation-Title': applicationName,
+                'Implementation-Version': baseVersion + '-' + gitRevision,
+                'Implementation-Vendor': author,
+
+                'Main-Class': application.mainClass
+        )
+    }
+}
+
+task releaseDeb(type: Deb) {
+    release '1'
+}

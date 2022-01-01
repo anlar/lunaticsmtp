@@ -14,14 +14,6 @@ Dummy SMTP server with JavaFX gui for testing email sending applications.
 
 You need Java 11+ and JavaFX module to build and run this application.
 
-## Installation
-
-### Ubuntu (18.04+) and Debian (10+)
-
-Download .deb package from [latest release page](https://github.com/anlar/lunaticsmtp/releases/latest) and install it:
-
-    $ sudo apt install ./lunaticsmtp_X.Y.Z-1_all.deb
-
 ## Usage
 
     Usage: lunaticsmtp [options]
@@ -67,11 +59,9 @@ Download .deb package from [latest release page](https://github.com/anlar/lunati
 
 ## Build
 
-To build it you need Gradle and git. From project directory execute the following:
+To run it you need Gradle and git. From project directory execute the following:
 
-    $ gradle release
-
-Result jar will be created in `build/libs`.
+    $ gradle run
 
 Note: if you don't have git installed you should remove from `build.gradle` git invocation code at `gitRevision` and `gitShortRevision` variables.
 
@@ -80,3 +70,4 @@ Note: if you don't have git installed you should remove from `build.gradle` git 
 Source code released under GPL3+, see [LICENSE](LICENSE) for details.
 
 Some icons are rendered from the embedded [Font Awesome](http://fontawesome.io/) by Dave Gandy, made available under the [SIL OFL 1.1 License](http://scripts.sil.org/OFL).
+
