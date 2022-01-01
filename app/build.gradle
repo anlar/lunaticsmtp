@@ -19,6 +19,7 @@
 plugins {
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.10'
+    id 'nebula.ospackage' version '8.4.1'
 }
 
 repositories {
@@ -47,3 +48,8 @@ dependencies {
 application {
     mainClass = 'com.gitlab.anlar.lunatic.Lunatic'
 }
+
+task releaseDeb(type: Deb) {
+    release '1'
+}
+
