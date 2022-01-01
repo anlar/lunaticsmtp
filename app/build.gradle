@@ -62,6 +62,12 @@ ext {
     gitShortRevision = 'git rev-parse --short HEAD'.execute().text.trim()
 }
 
+test {
+    if (System.properties['test.profile'] == 'headless') {
+        exclude '**/gui/*'
+    }
+}
+
 jar {
     manifest {
         attributes(
