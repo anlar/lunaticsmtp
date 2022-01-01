@@ -1,10 +1,8 @@
 # LunaticSMTP
 
 [![Build Status](https://github.com/anlar/lunaticsmtp/workflows/build/badge.svg)](https://github.com/anlar/lunaticsmtp/actions)
-[![Build Status](https://travis-ci.org/anlar/lunaticsmtp.svg?branch=master)](https://travis-ci.org/anlar/lunaticsmtp)
 [![Release](https://img.shields.io/github/release/anlar/lunaticsmtp.svg)](https://github.com/anlar/lunaticsmtp/releases/latest)
 [![License](https://img.shields.io/github/license/anlar/lunaticsmtp.svg)](https://github.com/anlar/lunaticsmtp/blob/master/LICENSE)
-[![Become a patron](https://img.shields.io/badge/patreon-donate-e85128.svg)](https://www.patreon.com/bePatron?u=5284588)
 
 Dummy SMTP server with JavaFX gui for testing email sending applications.
 
@@ -61,9 +59,9 @@ You need Java 11+ and JavaFX module to build and run this application.
 
 To run it you need Gradle and git. From project directory execute the following:
 
-    $ gradle run
+    $ ./gradlew run
 
-Note: if you don't have git installed you should remove from `build.gradle` git invocation code at `gitRevision` and `gitShortRevision` variables.
+Note: if you don't have git installed you should remove from `app/build.gradle` git invocation code at `gitRevision` and `gitShortRevision` variables.
 
 ## Copyright
 
