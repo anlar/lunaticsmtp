@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        java: [ '11', '12', '17' ]
+        java: [ '11', '17' ]
 
     steps:
     - name: Checkout repository
@@ -25,11 +25,12 @@ jobs:
       with:
         java-version: ${{ matrix.java }}
 
-    - name: Set up lintian
-      run: sudo apt-get install -y lintian
+#    - name: Set up lintian
+#      run: sudo apt-get install -y lintian
 
-    - name: Run tests and build .deb package
-      run: gradle releaseDeb -Dtest.profile=headless
+    - name: Run tests
+      run: gradle test -Dtest.profile=headless
 
-    - name: Run .deb package check
-      run: lintian build/distributions/*.deb -v --pedantic --suppress-tags debian-changelog-file-missing,manpage-not-compressed
+#     - name: Run .deb package check
+#       run: lintian build/distributions/*.deb -v --pedantic --suppress-tags debian-changelog-file-missing,manpage-not-compressed
+
