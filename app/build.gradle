@@ -91,3 +91,12 @@ jar {
 task releaseDeb(type: Deb) {
     release '1'
 }
+
+tasks.named("dependencyUpdates").configure {
+    // Ignore openjfx and slf4j updates
+    rejectVersionIf {
+        return (it.candidate.group == 'org.openjfx' && (it.candidate.version != it.currentVersion)) ||
+             (it.candidate.group == 'org.slf4j' && ['alpha', 'beta'].any{ itt -> it.candidate.version.contains(itt) })
+    }
+}
+
