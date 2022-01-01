@@ -19,6 +19,7 @@
 package com.gitlab.anlar.lunatic;
 
 import com.beust.jcommander.JCommander;
+import com.beust.jcommander.UnixStyleUsageFormatter;
 import com.gitlab.anlar.lunatic.gui.LunaticApplication;
 import com.gitlab.anlar.lunatic.server.EmailServer;
 import com.gitlab.anlar.lunatic.server.SaverConfig;
@@ -54,15 +55,12 @@ public class Lunatic {
     protected static JCommander createCommander(Config config, String[] args) {
         JCommander commander = new JCommander(config, args);
         commander.setProgramName("lunaticsmtp");
+        commander.setUsageFormatter(new LunaticUsageFormatter(commander));
         return commander;
     }
 
     protected static void printHelp(JCommander commander) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(String.format("LunaticSMTP, version %s, revision %s\n\n", Version.getVersion(), Version.getGitShortRevision()));
-        commander.usage(sb);
-        sb.append("\nReport bugs to: <https://github.com/anlar/lunaticsmtp/issues>");
-        JCommander.getConsole().println(sb.toString());
+        commander.usage();
     }
 
     private static void printVersion(JCommander commander) {
@@ -74,7 +72,7 @@ public class Lunatic {
                 "There is NO WARRANTY, to the extent permitted by law.\n\n" +
                 "Written by Anton Larionov.");
 
-        JCommander.getConsole().println(sb.toString());
+        commander.getConsole().println(sb.toString());
     }
 
     private static void startServer(int port, boolean isWrite, String directory) {
@@ -104,6 +102,20 @@ public class Lunatic {
             });
         } else {
             log.error("Failed to start SMTP server, {}", result.getMessage());
+        }
+    }
+
+    private static class LunaticUsageFormatter extends UnixStyleUsageFormatter {
+
+        public LunaticUsageFormatter(JCommander commander) {
+            super(commander);
+        }
+
+        @Override
+        public void usage(StringBuilder out, String indent) {
+            out.append(String.format("LunaticSMTP, version %s, revision %s\n\n", Version.getVersion(), Version.getGitShortRevision()));
+            super.usage(out, indent);
+            out.append("\nReport bugs to: <https://github.com/anlar/lunaticsmtp/issues>");
         }
     }
 }
