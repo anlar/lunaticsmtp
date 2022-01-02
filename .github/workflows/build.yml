@@ -32,5 +32,5 @@ jobs:
       run: gradle test releaseDeb -Dtest.profile=headless
 
     - name: Run .deb package check
-      run: lintian build/distributions/*.deb -v --pedantic --suppress-tags debian-changelog-file-missing,manpage-not-compressed
+      run: lintian app/build/distributions/*.deb -v --pedantic --suppress-tags debian-changelog-file-missing,manpage-not-compressed
 
