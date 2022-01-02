@@ -21,6 +21,7 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.0.10'
     id 'nebula.ospackage' version '9.0.0'
     id "com.github.ben-manes.versions" version '0.40.0'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 repositories {
@@ -97,6 +98,16 @@ tasks.named("dependencyUpdates").configure {
     rejectVersionIf {
         return (it.candidate.group == 'org.openjfx' && (it.candidate.version != it.currentVersion)) ||
              (it.candidate.group == 'org.slf4j' && ['alpha', 'beta'].any{ itt -> it.candidate.version.contains(itt) })
+    }
+}
+
+shadowJar {
+    archiveBaseName = applicationName
+    archiveClassifier = null
+    archiveVersion = baseVersion
+
+    dependencies {
+        exclude(dependency('org.openjfx::'))
     }
 }
 
