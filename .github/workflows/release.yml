@@ -28,7 +28,6 @@ jobs:
     - name: Create pre-release and upload artifacts
       uses: ncipollo/release-action@v1
       with:
-        omitName: true
         generateReleaseNotes: true
         draft: true
         prerelease: true
