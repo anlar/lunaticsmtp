@@ -70,7 +70,20 @@ test {
     }
 }
 
+task generateVersion {
+    doLast {
+        Properties props = new Properties()
+        props.setProperty('version', baseVersion)
+        props.setProperty('gitShortRevision', gitShortRevision)
+        mkdir("$buildDir/resources/main")
+        File propsFile = file("$buildDir/resources/main/version.properties")
+        props.store(propsFile.newWriter(), null)
+    }
+}
+
 jar {
+    dependsOn generateVersion
+
     manifest {
         attributes(
                 'Created-By': "${System.getProperty("java.runtime.version")} (${System.getProperty("java.vm.vendor")})",
@@ -90,6 +103,8 @@ jar {
 }
 
 shadowJar {
+    dependsOn generateVersion
+
     archiveBaseName = applicationName
     archiveClassifier = null
     archiveVersion = 'v' + baseVersion
