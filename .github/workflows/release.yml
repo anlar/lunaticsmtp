@@ -28,6 +28,7 @@ jobs:
       uses: ncipollo/release-action@v1
       with:
         generateReleaseNotes: true
+        draft: true
         prerelease: true
         artifacts: "app/build/distributions/*.deb,app/build/libs/lunaticsmtp-*.jar"
         token: ${{ secrets.GITHUB_TOKEN }}
