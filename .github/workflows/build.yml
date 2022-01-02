@@ -25,12 +25,12 @@ jobs:
       with:
         java-version: ${{ matrix.java }}
 
-#    - name: Set up lintian
-#      run: sudo apt-get install -y lintian
+    - name: Set up lintian
+      run: sudo apt-get install -y lintian
 
-    - name: Run tests
-      run: gradle test -Dtest.profile=headless
+    - name: Run tests and build DEB-package
+      run: gradle test releaseDeb -Dtest.profile=headless
 
-#     - name: Run .deb package check
-#       run: lintian build/distributions/*.deb -v --pedantic --suppress-tags debian-changelog-file-missing,manpage-not-compressed
+    - name: Run .deb package check
+      run: lintian build/distributions/*.deb -v --pedantic --suppress-tags debian-changelog-file-missing,manpage-not-compressed
 

@@ -89,8 +89,57 @@ jar {
     }
 }
 
-task releaseDeb(type: Deb) {
-    release '1'
+shadowJar {
+    archiveBaseName = applicationName
+    archiveClassifier = null
+    archiveVersion = 'v' + baseVersion
+
+    dependencies {
+        exclude(dependency('org.openjfx::'))
+    }
+}
+
+task releaseDeb(type: Deb, dependsOn: 'shadowJar', description: 'Assembles deb-package.') {
+    packageName = applicationName
+    version = baseVersion
+    release = 1
+    user = 'root'
+    license = 'GPLv3'
+    maintainer = author + ' <contact-via-project-issue-tracker@github.com>'
+    url = 'https://github.com/anlar/lunaticsmtp'
+    summary = 'dummy SMTP server with GUI'
+    packageDescription = 'Simple JavaFX SMTP server for testing email sending applications.'
+    requires('default-jre', '2:1.11', GREATER | EQUAL).or('java11-runtime')
+    requires('openjfx')
+    customField([
+            'Vcs-Browser': 'https://github.com/anlar/lunaticsmtp',
+    ])
+ 
+    from("$buildDir/libs/$applicationName-v${baseVersion}.jar") {
+        into '/usr/share/lunaticsmtp'
+        rename("$applicationName-v${baseVersion}.jar", "${applicationName}.jar")
+        fileMode 0644
+    }
+    from("../package/linux/lunaticsmtp") {
+        into '/usr/bin'
+        fileMode 0755
+    }
+    from("../package/linux/lunaticsmtp.desktop") {
+        into '/usr/share/applications'
+        fileMode 0644
+    }
+    from("../package/linux/lunaticsmtp.png") {
+        into '/usr/share/pixmaps'
+        fileMode 0644
+    }
+    from("../package/linux/copyright") {
+        into "/usr/share/doc/$packageName"
+        fileMode 0644
+    }
+    from("../package/linux/lunaticsmtp.1") {
+        into "/usr/share/man/man1"
+        fileMode 0644
+    }
 }
 
 tasks.named("dependencyUpdates").configure {
@@ -98,16 +147,6 @@ tasks.named("dependencyUpdates").configure {
     rejectVersionIf {
         return (it.candidate.group == 'org.openjfx' && (it.candidate.version != it.currentVersion)) ||
              (it.candidate.group == 'org.slf4j' && ['alpha', 'beta'].any{ itt -> it.candidate.version.contains(itt) })
-    }
-}
-
-shadowJar {
-    archiveBaseName = applicationName
-    archiveClassifier = null
-    archiveVersion = baseVersion
-
-    dependencies {
-        exclude(dependency('org.openjfx::'))
     }
 }
 
