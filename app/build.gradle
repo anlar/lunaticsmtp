@@ -97,6 +97,8 @@ shadowJar {
     dependencies {
         exclude(dependency('org.openjfx::'))
     }
+
+    exclude '**/*.java'
 }
 
 task releaseDeb(type: Deb, dependsOn: 'shadowJar', description: 'Assembles deb-package.') {
@@ -104,6 +106,7 @@ task releaseDeb(type: Deb, dependsOn: 'shadowJar', description: 'Assembles deb-p
     version = baseVersion
     release = 1
     user = 'root'
+    permissionGroup = 'root'
     license = 'GPLv3'
     maintainer = author + ' <contact-via-project-issue-tracker@github.com>'
     url = 'https://github.com/anlar/lunaticsmtp'
