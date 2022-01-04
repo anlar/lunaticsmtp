@@ -1,3 +1,10 @@
+## v0.5.1 (2021-01-04) Mind Bending B
+
+* Update all library dependencies to the latest versions.
+* Update build script to Gradle 7.3.3.
+* Use Github Actions to build and release project.
+* Remove Travis integration.
+
 ## v0.5.0 (2019-11-04) Mind Bending
 
 * Migrate to Java 11.
