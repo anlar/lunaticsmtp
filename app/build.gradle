@@ -22,6 +22,7 @@ plugins {
     id 'nebula.ospackage' version '9.0.0'
     id "com.github.ben-manes.versions" version '0.40.0'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'org.owasp.dependencycheck' version '7.0.4.1'
 }
 
 repositories {
@@ -166,5 +167,9 @@ tasks.named("dependencyUpdates").configure {
         return (it.candidate.group == 'org.openjfx' && (it.candidate.version != it.currentVersion)) ||
              (it.candidate.group == 'org.slf4j' && ['alpha', 'beta'].any{ itt -> it.candidate.version.contains(itt) })
     }
+}
+
+dependencyCheck {
+    failBuildOnCVSS = 0
 }
 
