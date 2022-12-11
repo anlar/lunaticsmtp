@@ -18,11 +18,11 @@
 
 plugins {
     id 'application'
-    id 'org.openjfx.javafxplugin' version '0.0.10'
-    id 'nebula.ospackage' version '9.0.0'
-    id "com.github.ben-manes.versions" version '0.40.0'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+    id 'nebula.ospackage' version '9.1.1'
+    id "com.github.ben-manes.versions" version '0.44.0'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
-    id 'org.owasp.dependencycheck' version '7.0.4.1'
+    id 'org.owasp.dependencycheck' version '7.4.1'
 }
 
 repositories {
@@ -33,18 +33,18 @@ sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
 
 javafx {
-    version = "17"
+    version = "19"
     modules = ['javafx.controls', 'javafx.fxml', 'javafx.web']
 }
 
 dependencies {
-    implementation 'org.slf4j:slf4j-api:1.7.36'
-    implementation 'org.slf4j:slf4j-log4j12:1.7.36'
+    implementation 'org.slf4j:slf4j-api:2.0.5'
+    implementation 'org.slf4j:slf4j-log4j12:2.0.5'
 
     implementation 'org.apache.commons:commons-lang3:3.12.0'
-    implementation 'com.beust:jcommander:1.81'
+    implementation 'com.beust:jcommander:1.82'
     implementation 'org.subethamail:subethasmtp:3.1.7'
-    implementation 'org.controlsfx:controlsfx:11.1.1'
+    implementation 'org.controlsfx:controlsfx:11.1.2'
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.testfx:testfx-core:4.0.16-alpha'
@@ -162,10 +162,9 @@ task releaseDeb(type: Deb, dependsOn: 'shadowJar', description: 'Assembles deb-p
 }
 
 tasks.named("dependencyUpdates").configure {
-    // Ignore openjfx and slf4j updates
+    // Ignore openjfx EA updates
     rejectVersionIf {
-        return (it.candidate.group == 'org.openjfx' && (it.candidate.version != it.currentVersion)) ||
-             (it.candidate.group == 'org.slf4j' && ['alpha', 'beta'].any{ itt -> it.candidate.version.contains(itt) })
+        return (it.candidate.group == 'org.openjfx' && it.candidate.version.contains('ea'))
     }
 }
 
