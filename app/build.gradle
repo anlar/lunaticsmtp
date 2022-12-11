@@ -57,7 +57,7 @@ application {
 
 ext {
     applicationName = 'lunaticsmtp'
-    baseVersion = '0.5.1'
+    baseVersion = '0.5.2'
     author = 'Anton Larionov'
 
     buildTime = new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")

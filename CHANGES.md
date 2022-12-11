@@ -1,3 +1,11 @@
+## v0.5.2 (2022-12-11) Mind Bending C
+
+* Update all library dependencies to latest versions.
+* Update build script to Gradle v7.6.
+* Add OWASP dependency check build task.
+* Github Actions: remove CodeQL build task.
+* Github Actions: add Java 19 to build test.
+
 ## v0.5.1 (2021-01-04) Mind Bending B
 
 * Update all library dependencies to the latest versions.
