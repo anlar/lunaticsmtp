@@ -27,7 +27,7 @@ jobs:
         java-version: ${{ matrix.java }}
 
     - name: Set up lintian
-      run: sudo apt-get install -y lintian
+      run: sudo apt-get update && sudo apt-get install -y lintian
 
     - name: Run tests and build DEB-package
       run: gradle test releaseDeb dependencyUpdates dependencyCheckAnalyze -Dtest.profile=headless
