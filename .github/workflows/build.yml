@@ -30,7 +30,7 @@ jobs:
       run: sudo apt-get update && sudo apt-get install -y lintian
 
     - name: Run tests and build DEB-package
-      run: gradle test releaseDeb dependencyUpdates dependencyCheckAnalyze -Dtest.profile=headless
+      run: ./gradlew test releaseDeb dependencyUpdates dependencyCheckAnalyze -Dtest.profile=headless
 
     - name: Run .deb package check
       run: lintian app/build/distributions/*.deb -v --pedantic --suppress-tags debian-changelog-file-missing,manpage-not-compressed

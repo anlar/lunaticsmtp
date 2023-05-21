@@ -24,7 +24,7 @@ jobs:
         java-version: '11'
 
     - name: Run tests and build DEB-package
-      run: gradle clean test releaseDeb -Dtest.profile=headless
+      run: ./gradlew clean test releaseDeb -Dtest.profile=headless
 
     - name: Create pre-release and upload artifacts
       uses: ncipollo/release-action@v1
