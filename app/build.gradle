@@ -18,7 +18,7 @@
 
 plugins {
     id 'application'
-    id 'org.openjfx.javafxplugin' version '0.0.13'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
     id 'nebula.ospackage' version '9.1.1'
     id "com.github.ben-manes.versions" version '0.44.0'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
