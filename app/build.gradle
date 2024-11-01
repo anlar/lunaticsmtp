@@ -22,7 +22,7 @@ plugins {
     id 'nebula.ospackage' version '9.1.1'
     id "com.github.ben-manes.versions" version '0.44.0'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
-    id 'org.owasp.dependencycheck' version '7.4.4'
+    id 'org.owasp.dependencycheck' version '11.1.0'
 }
 
 repositories {
