@@ -37,7 +37,7 @@ public class GuiTest extends ApplicationTest {
         super.start(stage);
 
         Parent sceneRoot = getRootNode();
-        Scene scene = new Scene(sceneRoot, 100, 100);
+        Scene scene = new Scene(sceneRoot, 800, 600);
         stage.setScene(scene);
         stage.show();
     }
