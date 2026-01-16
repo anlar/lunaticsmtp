@@ -10,7 +10,7 @@ Dummy SMTP server with JavaFX gui for testing email sending applications.
 
 ## Requirements
 
-You need Java 11+ and JavaFX module to build and run this application.
+You need Java 17+ and JavaFX module to build and run this application.
 
 ## Installation
 
@@ -52,7 +52,7 @@ Download deb package from [latest release page](https://github.com/anlar/lunatic
 
 ## Development
 
-To build this application you need Gradle and git (in addition to JDK 11+ with JavaFX module). From project directory execute one of the following commands:
+To build this application you need Gradle and git (in addition to JDK 17+ with JavaFX module). From project directory execute one of the following commands:
 
 1. Build and run application from source:
 

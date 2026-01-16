@@ -129,7 +129,7 @@ task releaseDeb(type: Deb, dependsOn: 'shadowJar', description: 'Assembles deb-p
     url = 'https://github.com/anlar/lunaticsmtp'
     summary = 'dummy SMTP server with GUI'
     packageDescription = 'Simple JavaFX SMTP server for testing email sending applications.'
-    requires('default-jre', '2:1.11', GREATER | EQUAL).or('java11-runtime')
+    requires('default-jre', '2:1.17', GREATER | EQUAL).or('java17-runtime')
     requires('openjfx')
     customField([
             'Vcs-Browser': 'https://github.com/anlar/lunaticsmtp',
