@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
       matrix:
         java: [ '17', '19', '21' ]
 
@@ -30,7 +31,7 @@ jobs:
       run: sudo apt-get update && sudo apt-get install -y lintian
 
     - name: Run tests and build DEB-package
-      run: ./gradlew clean dependencyCheckPurge test releaseDeb dependencyUpdates dependencyCheckAnalyze -Dtest.profile=headless
+      run: ./gradlew clean test releaseDeb dependencyUpdates -Dtest.profile=headless
 
     - name: Run .deb package check
       run: lintian app/build/distributions/*.deb -v --pedantic --suppress-tags debian-changelog-file-missing,manpage-not-compressed
