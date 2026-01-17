@@ -10,7 +10,7 @@ updates:
     schedule:
       interval: "weekly"
     assignees:
-      - "anlar"      
+      - "anlar"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
