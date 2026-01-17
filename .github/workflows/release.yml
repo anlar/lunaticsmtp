@@ -21,7 +21,7 @@ jobs:
       uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
-        java-version: '11'
+        java-version: '17'
 
     - name: Run tests and build DEB-package
       run: ./gradlew clean test releaseDeb -Dtest.profile=headless
