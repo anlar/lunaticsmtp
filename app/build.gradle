@@ -39,8 +39,8 @@ javafx {
 }
 
 dependencies {
-    implementation 'org.slf4j:slf4j-api:2.0.17'
-    implementation 'org.slf4j:slf4j-log4j12:2.0.17'
+    implementation 'org.slf4j:slf4j-api:2.0.18'
+    implementation 'org.slf4j:slf4j-log4j12:2.0.18'
 
     implementation 'org.apache.commons:commons-lang3:3.20.0'
     implementation 'com.beust:jcommander:1.82'
