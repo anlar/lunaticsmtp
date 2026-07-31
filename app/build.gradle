@@ -45,7 +45,7 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3:3.20.0'
     implementation 'com.beust:jcommander:1.82'
     implementation 'org.subethamail:subethasmtp:3.1.7'
-    implementation 'org.controlsfx:controlsfx:11.2.3'
+    implementation 'org.controlsfx:controlsfx:11.2.4'
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.testfx:testfx-core:4.0.18'
