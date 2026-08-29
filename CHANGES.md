@@ -1,3 +1,14 @@
+## v0.6.0 (2026-08-29) Immortal Smoke
+
+* Raise minimal required JDK version to 17.
+* Update all library dependencies to latest versions.
+* Update build script to Gradle v9.7.1, commit Gradle wrapper into repository.
+* Replace Shadow plugin with its com.gradleup fork.
+* Switch to com.netflix.nebula.ospackage plugin.
+* Remove OWASP dependency check build task.
+* Github Actions: build and release with Gradle wrapper, test on Java 17, 21 and 25.
+* Github Actions: enable Dependabot for Gradle and Actions, add stale issues workflow.
+
 ## v0.5.2 (2022-12-11) Mind Bending C
 
 * Update all library dependencies to latest versions.
