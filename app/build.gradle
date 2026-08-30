@@ -112,7 +112,7 @@ shadowJar {
     archiveVersion = 'v' + baseVersion
 
     dependencies {
-        exclude(dependency('org.openjfx::'))
+        exclude(dependency('org.openjfx:.*:.*'))
     }
 
     exclude '**/*.java'
