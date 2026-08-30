@@ -1,3 +1,10 @@
+## v0.6.2 (2026-08-30) Immortal Smoke C
+
+* Exclude JavaFX libraries from application jar again: their exclusion rule silently
+  stopped working after switching to the Shadow plugin fork, which inflated jar size
+  from 3 MB to 47 MB.
+* Apply Gradle versions plugin under its new io.github.ben-manes.versions id.
+
 ## v0.6.1 (2026-08-30) Immortal Smoke B
 
 * Fix Java runtime dependency in deb-package so that it accepts newer JDK versions.
