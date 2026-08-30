@@ -131,10 +131,7 @@ task releaseDeb(type: Deb, dependsOn: 'shadowJar', description: 'Assembles deb-p
     packageDescription = 'Simple JavaFX SMTP server for testing email sending applications.'
     requires('default-jre', '2:1.17', GREATER | EQUAL).or('java17-runtime')
     requires('openjfx')
-    customField([
-            'Vcs-Browser': 'https://github.com/anlar/lunaticsmtp',
-    ])
- 
+
     from("$buildDir/libs/$applicationName-v${baseVersion}.jar") {
         into '/usr/share/lunaticsmtp'
         rename("$applicationName-v${baseVersion}.jar", "${applicationName}.jar")
