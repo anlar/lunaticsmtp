@@ -1,3 +1,9 @@
+## v0.6.1 (2026-08-30) Immortal Smoke B
+
+* Fix Java runtime dependency in deb-package so that it accepts newer JDK versions.
+* Remove unused vcs-browser field from deb-package metadata.
+* Fix line endings in Gradle wrapper batch script.
+
 ## v0.6.0 (2026-08-29) Immortal Smoke
 
 * Raise minimal required JDK version to 17.
